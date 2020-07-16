@@ -12,27 +12,13 @@ namespace FirstDbConnection
         static string connectionString = @"Data Source=BIBANU-PC\SQLEXPRESS;Initial Catalog=CRM;Persist Security Info=True;User ID=crmuser;Password=crmusr";
         static void Main(string[] args)
         {
-            List<Client> suppliers = new List<Client>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                string query = "Select * from Customer";
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    using (var dataReader = cmd.ExecuteReader())
-                    {
-                        while (dataReader.Read())
-                        {
-                            suppliers.Add(new Client
-                            {
-                                Id = dataReader.GetInt32(0),
-                                Name = dataReader.GetString(1)
-                            });
-                            Console.WriteLine(dataReader.GetValue(0) + " - " + dataReader.GetValue(1) + " " + dataReader.GetValue(2));
-                        }
-                    }
-                }
-            }
+            List<Customer> customers = GetCustomers();
+            List<Orders> orders = GetOrders(1000);
+            Console.ReadKey();
+        }
+
+        private static List<Orders> GetOrders(int price)
+        {
             List<Orders> orders = new List<Orders>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -54,7 +40,33 @@ namespace FirstDbConnection
                     }
                 }
             }
-            Console.ReadKey();
+            return orders;
+        }
+
+        private static List<Client> GetCustomers()
+        {
+            List<Client> customers = new List<Client>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from Customer";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    using (var dataReader = cmd.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            customers.Add(new Client
+                            {
+                                Id = dataReader.GetInt32(0),
+                                Name = dataReader.GetString(1)
+                            });
+                            Console.WriteLine(dataReader.GetValue(0) + " - " + dataReader.GetValue(1) + " " + dataReader.GetValue(2));
+                        }
+                    }
+                }
+            }
+            return customers;
         }
     }
     class Client
