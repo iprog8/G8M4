@@ -13,44 +13,57 @@ namespace FirstLab
         static string connectionString = @"Data Source=DESKTOP-HCGU07N\SQLEXPRESS;Initial Catalog=CRM;Persist Security Info=True;User ID=crmuser;Password=crmusr";
         static void Main(string[] args)
         {
+            List<Client> clienti = GetCustomers();
+            for(int i = 0; i < clienti.Count; i++)
+            {
+                Console.WriteLine($"{clienti[i].Id} - {clienti[i].FirstName} {clienti[i].LastName} - {clienti[i].Country}");
+            }
+            List<Order> orders = GetOrdersAbove(5000);
+            for (int j = 0; j < orders.Count; j++)
+            {
+                Console.WriteLine($"{orders[j].Id} - {orders[j].CustomerId} - {orders[j].TotalAmount}");
+            }
+            Console.ReadKey();
+        }
+        private static List<Client> GetCustomers()
+        {
             List<Client> clienti = new List<Client>();
-            List<Order> orders = new List<Order>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string firstQuery = "Select * from Customer";
-                string secondQuery = "Select * from [Order] where TotalAmount > 1000";
-                using (SqlCommand cmd = new SqlCommand(firstQuery, con))
+                string query = "Select * from Customer";
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     using (var dataReader = cmd.ExecuteReader())
                     {
                         while (dataReader.Read())
                         {
-                            clienti.Add(new Client(dataReader.GetInt32(0),dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetString(4), dataReader.GetString(5)));
+                            clienti.Add(new Client(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetString(4), dataReader.GetString(5)));
                         }
                     }
                 }
-                using (SqlCommand cmd2 = new SqlCommand(secondQuery,con))
+            }
+            return clienti;
+        }
+        private static List<Order> GetOrdersAbove(int price)
+        {
+            List<Order> orders = new List<Order>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = $"Select * from [Order] where TotalAmount > {price}";
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    using (var dataReader = cmd2.ExecuteReader())
+                    using (var dataReader = cmd.ExecuteReader())
                     {
                         while (dataReader.Read())
                         {
-                            orders.Add(new Order(dataReader.GetInt32(0),dataReader.GetDateTime(1),dataReader.GetString(2),dataReader.GetInt32(3),dataReader.GetDecimal(4)));
+                            orders.Add(new Order(dataReader.GetInt32(0), dataReader.GetDateTime(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetDecimal(4)));
                         }
                     }
                 }
-                con.Close();
             }
-            for(int i = 0; i < clienti.Count; i++)
-            {
-                Console.WriteLine($"{clienti[i].Id} - {clienti[i].FirstName} {clienti[i].LastName} - {clienti[i].Country}");
-            }
-            for(int j = 0; j < orders.Count; j++)
-            {
-                Console.WriteLine($"{orders[j].Id} - {orders[j].CustomerId} - {orders[j].TotalAmount}");
-            }
-            Console.ReadKey();
+            return orders;
         }
     }
 }
