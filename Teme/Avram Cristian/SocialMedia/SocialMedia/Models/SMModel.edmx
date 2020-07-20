@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Postare">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="PostareTXT" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UtilizatorID" Type="int" Nullable="false" />
+          <Property Name="PozaID" Type="int" />
+        </EntityType>
+        <EntityType Name="Poza">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="AdresaPoza" Type="nvarchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilizator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NumeUtilizator" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_Postare_Poza">
+          <End Role="Poza" Type="Self.Poza" Multiplicity="0..1" />
+          <End Role="Postare" Type="Self.Postare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poza">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Postare">
+              <PropertyRef Name="PozaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postare_Utilizator">
+          <End Role="Utilizator" Type="Self.Utilizator" Multiplicity="1" />
+          <End Role="Postare" Type="Self.Postare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Postare">
+              <PropertyRef Name="UtilizatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SMModelStoreContainer">
+          <EntitySet Name="Postare" EntityType="Self.Postare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poza" EntityType="Self.Poza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilizator" EntityType="Self.Utilizator" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Postare_Poza" Association="Self.FK_Postare_Poza">
+            <End Role="Poza" EntitySet="Poza" />
+            <End Role="Postare" EntitySet="Postare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postare_Utilizator" Association="Self.FK_Postare_Utilizator">
+            <End Role="Utilizator" EntitySet="Utilizator" />
+            <End Role="Postare" EntitySet="Postare" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Postare">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="PostareTXT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UtilizatorID" Type="Int32" Nullable="false" />
+          <Property Name="PozaID" Type="Int32" />
+          <NavigationProperty Name="Poza" Relationship="Self.FK_Postare_Poza" FromRole="Postare" ToRole="Poza" />
+          <NavigationProperty Name="Utilizator" Relationship="Self.FK_Postare_Utilizator" FromRole="Postare" ToRole="Utilizator" />
+        </EntityType>
+        <EntityType Name="Poza">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="AdresaPoza" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Postares" Relationship="Self.FK_Postare_Poza" FromRole="Poza" ToRole="Postare" />
+        </EntityType>
+        <EntityType Name="Utilizator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NumeUtilizator" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Postares" Relationship="Self.FK_Postare_Utilizator" FromRole="Utilizator" ToRole="Postare" />
+        </EntityType>
+        <Association Name="FK_Postare_Poza">
+          <End Role="Poza" Type="Self.Poza" Multiplicity="0..1" />
+          <End Role="Postare" Type="Self.Postare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poza">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Postare">
+              <PropertyRef Name="PozaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postare_Utilizator">
+          <End Role="Utilizator" Type="Self.Utilizator" Multiplicity="1" />
+          <End Role="Postare" Type="Self.Postare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Postare">
+              <PropertyRef Name="UtilizatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Social_MediaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Postares" EntityType="Self.Postare" />
+          <EntitySet Name="Pozas" EntityType="Self.Poza" />
+          <EntitySet Name="Utilizators" EntityType="Self.Utilizator" />
+          <AssociationSet Name="FK_Postare_Poza" Association="Self.FK_Postare_Poza">
+            <End Role="Poza" EntitySet="Pozas" />
+            <End Role="Postare" EntitySet="Postares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postare_Utilizator" Association="Self.FK_Postare_Utilizator">
+            <End Role="Utilizator" EntitySet="Utilizators" />
+            <End Role="Postare" EntitySet="Postares" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SMModelStoreContainer" CdmEntityContainer="Social_MediaEntities">
+          <EntitySetMapping Name="Postares">
+            <EntityTypeMapping TypeName="SMModel.Postare">
+              <MappingFragment StoreEntitySet="Postare">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PostareTXT" ColumnName="PostareTXT" />
+                <ScalarProperty Name="UtilizatorID" ColumnName="UtilizatorID" />
+                <ScalarProperty Name="PozaID" ColumnName="PozaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pozas">
+            <EntityTypeMapping TypeName="SMModel.Poza">
+              <MappingFragment StoreEntitySet="Poza">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AdresaPoza" ColumnName="AdresaPoza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilizators">
+            <EntityTypeMapping TypeName="SMModel.Utilizator">
+              <MappingFragment StoreEntitySet="Utilizator">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NumeUtilizator" ColumnName="NumeUtilizator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
