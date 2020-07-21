@@ -14,15 +14,7 @@ namespace FirstLab
         static void Main(string[] args)
         {
             List<Client> clienti = GetCustomers();
-            for(int i = 0; i < clienti.Count; i++)
-            {
-                Console.WriteLine($"{clienti[i].Id} - {clienti[i].FirstName} {clienti[i].LastName} - {clienti[i].Country}");
-            }
             List<Order> orders = GetOrdersAbove(5000);
-            for (int j = 0; j < orders.Count; j++)
-            {
-                Console.WriteLine($"{orders[j].Id} - {orders[j].CustomerId} - {orders[j].TotalAmount}");
-            }
             Console.ReadKey();
         }
         private static List<Client> GetCustomers()
@@ -39,6 +31,7 @@ namespace FirstLab
                         while (dataReader.Read())
                         {
                             clienti.Add(new Client(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetString(4), dataReader.GetString(5)));
+                            Console.WriteLine($"{dataReader.GetInt32(0)} - {dataReader.GetString(1)} {dataReader.GetString(2)} - {dataReader.GetString(3)}");
                         }
                     }
                 }
@@ -59,6 +52,7 @@ namespace FirstLab
                         while (dataReader.Read())
                         {
                             orders.Add(new Order(dataReader.GetInt32(0), dataReader.GetDateTime(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetDecimal(4)));
+                            Console.WriteLine($"{dataReader.GetInt32(0)} - {dataReader.GetInt32(3)} - {dataReader.GetDecimal(4)}");
                         }
                     }
                 }
