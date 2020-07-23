@@ -84,6 +84,7 @@
     <Compile Include="Models\Supplier.cs">
       <DependentUpon>CrmModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Produse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
