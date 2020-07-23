@@ -12,9 +12,9 @@ namespace EFandLambdaExpressions
         public ICollection<Order> GetAll()
         {
             CRMEntities db = new CRMEntities();
-            ICollection<Order> comenzi = db.Order.ToList();
+            ICollection<Order> comenzi = db.Order.Where(o => o.TotalAmount >= 5000).ToList();
             Console.WriteLine("Comenzile mai mari de 5000 au ClientID si suma:");
-            foreach ( var comanda in comenzi.Where(o => o.TotalAmount >= 5000))
+            foreach (var comanda in comenzi)
             {
                 if (comanda != null)
                 {
