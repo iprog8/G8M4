@@ -20,6 +20,10 @@ namespace Crm
 
             //Primul punct
             ICollection<Product> productsWithOrders = productsWithValueLessThan5.Include(p => p.OrderItems).ToList();
+            ICollection<Product> prds = db.Products
+                .Include(p => p.OrderItems)
+                .Where(p => p.UnitPrice < 5)
+                .ToList();
             foreach (var product in productsWithOrders)
             {
                 Console.WriteLine($"Numele produsului: {product.ProductName} \nNumar comenzi: {product.OrderItems.Count()}");
@@ -53,14 +57,16 @@ namespace Crm
 
 
             //Ultimul punct
-            //Aici nu am inteles ce trebuia sa fac mai exact
-            //Cerinta:
             /*5.Sa selectati toate produsele mai ieftine de 5 lei si sa afisati
-            si pe cate produse au fost vandute.Nu uitati de eager-lazy loading;*/
-            ICollection<Product> products2 = productsWithValueLessThan5.ToList();
+            si cate produse au fost vandute.Nu uitati de eager-lazy loading;*/
+            // 
+            ICollection<Product> products2 = db.Products
+                .Include(p => p.OrderItems)
+                .Where(p => p.UnitPrice < 5)
+                .ToList();
             foreach (var product in products2)
             {
-                Console.WriteLine($"Numele produsului: {product.ProductName}");
+                Console.WriteLine($"Numele produsului: {product.ProductName} apare pe {product.OrderItems.Count} si s-au vandut {product.OrderItems.Sum(p => p.Quantity)}");
             }
             Console.ReadKey();
         }
