@@ -1,0 +1,16 @@
+﻿@model ICollection<FirstMvcApp.Models.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index Bazu</h2>
+
+<ol>
+    @foreach (var supplier in Model)
+    {
+        <li>@supplier.CompanyName - @supplier.ContactName Tel: @supplier.Phone </li>
+    }
+</ol>
+
