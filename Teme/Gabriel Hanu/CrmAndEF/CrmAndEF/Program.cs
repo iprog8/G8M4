@@ -16,7 +16,7 @@ namespace CrmAndEF
         static void Main(string[] args)
         {
             CRMEntities db = new CRMEntities();
-            //db.Database.Log += Console.WriteLine;
+            db.Database.Log += Console.WriteLine;
 
             /*1. CRM trebuie sa faca un site in care sa includa o pagina in care administratorul site - ului 
             sa vada lista de furnizori si numarul de produse pe care acestia le detin. Creati un query 
@@ -76,18 +76,11 @@ namespace CrmAndEF
                 Console.WriteLine($"Numarul comenzii: {order.OrderNumber} \nData comenzii: {order.OrderDate} \nSuma totala: {order.TotalAmount} \nProduse vandute: {order.OrderItems.Count} \n{delimitator}");
             }
         }
-        private static void displaySupp(dynamic supp)
-        {
-            foreach (var supplier in supp)
-            {
-                Console.WriteLine($"Numele companiei: {supplier.CompanyName} \nProduse vandute: {supplier.Quantity} \n{delimitator}");
-            }
-        }
         private static void displaySuppAndQuantityOfProducts(CRMEntities dataBase, int numOfPage, int elemsInPage)
         {
             if (numOfPage < 0 || elemsInPage < 1) return;
             int elemsToSkip = (numOfPage - 1) * elemsInPage;
-            var supp = (
+            var suppliers = (
                 from s in dataBase.Suppliers
                 join p in dataBase.Products
                 on s.Id equals p.SupplierId
@@ -105,43 +98,45 @@ namespace CrmAndEF
                     Quantity = g.Sum(s => s.quantity),
                     CompanyName = g.FirstOrDefault().companyName
                 })
-                .OrderBy(s => s.CompanyName);
+                .OrderBy(s => s.CompanyName)
+                .Reverse()
+                .ToList();
             if (numOfPage == 0)
             {
                 Console.WriteLine("\nUltima pagina");
-                if (supp.Count() < elemsInPage)
+                if (suppliers.Count() < elemsInPage)
                 {
                     Console.WriteLine($"Numarul de elemente introdus de tine este mai mare decat elementele din baza de date, iti vom afisa primele 10 elemnte...");
-                    var suppliers = supp
+                    suppliers = suppliers
                         .Take(10)
                         .ToList();
-                    displaySupp(suppliers);
                 }
-                else if (supp.Count() % elemsInPage == 0)
+                else if (suppliers.Count() % elemsInPage == 0)
                 {
-                    var suppliers = supp
-                        .Reverse()
+                    suppliers = suppliers
+                        .Skip(suppliers.Count() - elemsInPage)
                         .Take(elemsInPage)
                         .ToList();
-                    displaySupp(suppliers);
                 }
                 else
                 {
-                    var suppliers = supp
-                        .Skip(supp.Count() - (supp.Count() % elemsInPage))//din totalul elementelor scad restul impartirii a totalul elementelor cu cate elemente sunt pe pagina
-                        .Take(supp.Count() % elemsInPage)
+                    suppliers = suppliers
+                        .Skip(suppliers.Count() - (suppliers.Count() % elemsInPage))//din totalul elementelor scad restul impartirii a totalul elementelor cu cate elemente sunt pe pagina
+                        .Take(suppliers.Count() % elemsInPage)
                         .ToList();
-                    displaySupp(suppliers);
                 }
             }
             else
             {
                 Console.WriteLine($"\nPagina cu numarul: {numOfPage}");
-                var suppliers = supp
+                suppliers = suppliers
                     .Skip(elemsToSkip)
                     .Take(elemsInPage)
                     .ToList();
-                displaySupp(suppliers);
+            }
+            foreach (var supplier in suppliers)
+            {
+                Console.WriteLine($"Numele companiei: {supplier.CompanyName} \nProduse vandute: {supplier.Quantity} \n{delimitator}");
             }
         }
     }
