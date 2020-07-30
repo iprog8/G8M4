@@ -18,15 +18,19 @@ namespace CrmAndEF
             CRMEntities db = new CRMEntities();
             db.Database.Log += Console.WriteLine;
 
+            displaySuppAndQuantityOfProducts2(db, 1, 10);
+            int lastPage = GetLastPage(db.Suppliers, 10);
+            displaySuppAndQuantityOfProducts2(db, lastPage, 10);
+
             /*1. CRM trebuie sa faca un site in care sa includa o pagina in care administratorul site - ului 
             sa vada lista de furnizori si numarul de produse pe care acestia le detin. Creati un query 
             folosind lambda expression care sa afiseze doar 10 elemente pe pagina.*/
 
-            displayListOfSuppInPage(db,1,10);
+            displayListOfSuppInPage(db, 1, 10);
 
             /*2. Plecand de la punctul 1 afisati pagina 3*/
 
-            displayListOfSuppInPage(db,3,10);
+            displayListOfSuppInPage(db, 3, 10);
 
             /*3. Selectati toate comenzile si afisati la fiecare comanda cate produse s - au vandut.
             Sa se afiseze cate 20 se elemente pe pagina pentru paginele 2 si 4.*/
@@ -42,13 +46,18 @@ namespace CrmAndEF
             Console.ReadKey();
         }
 
-        private static void displayListOfSuppInPage(CRMEntities dataBase ,int numOfPage, int elemsInPage)
+        private static int GetLastPage(DbSet<Supplier> suppliers, int itemsPerPage)
+        {
+            return (int)Math.Ceiling(suppliers.Count() / (double)itemsPerPage);
+        }
+
+        private static void displayListOfSuppInPage(CRMEntities dataBase, int numOfPage, int elemsInPage)
         {
             if (numOfPage < 1 || elemsInPage < 1) return;
             int elemsToSkip = (numOfPage - 1) * elemsInPage;
             var suppliers = dataBase.Suppliers
                 .Include(s => s.Products)
-                .Select(s => new { s.CompanyName, s.ContactName, s.Country, s.Products })
+                .Select(s => new { s.CompanyName, s.ContactName, s.Country, s.Products.Count })
                 .OrderBy(s => s.Country)
                 .Skip(elemsToSkip)
                 .Take(elemsInPage)
@@ -56,7 +65,7 @@ namespace CrmAndEF
             Console.WriteLine($"\nPagina cu numarul: {numOfPage}\n");
             foreach (var supplier in suppliers)
             {
-                Console.WriteLine($"Numele companiei: {supplier.CompanyName} \nNumele de contact: {supplier.ContactName} \nTara: {supplier.Country} \nNumar produse: {supplier.Products.Count} \n{delimitator}");
+                Console.WriteLine($"Numele companiei: {supplier.CompanyName} \nNumele de contact: {supplier.ContactName} \nTara: {supplier.Country} \nNumar produse: {supplier.Count} \n{delimitator}");
             }
         }
         private static void displayOrdersAndItemsOnPage(CRMEntities dataBase, int numOfPage, int elemsInPage)
@@ -73,8 +82,38 @@ namespace CrmAndEF
                 .ToList();
             foreach (var order in orders)
             {
-                Console.WriteLine($"Numarul comenzii: {order.OrderNumber} \nData comenzii: {order.OrderDate} \nSuma totala: {order.TotalAmount} \nProduse vandute: {order.OrderItems.Count} \n{delimitator}");
+                Console.WriteLine($"Numarul comenzii: {order.OrderNumber} \nData comenzii: {order.OrderDate} \nSuma totala: {order.TotalAmount} \nProduse vandute: {order.OrderItems.Sum( oi => oi.Quantity)} \n{delimitator}");
             }
+        }
+
+        /*4. Sa selectati toti furnizorii si sa afisati si cate produse vinde fiecare.
+        Sa se afiseze cate 10 elemente pe pagina pentru prima si ultima Pagina*/
+        private static void displaySuppAndQuantityOfProducts2(CRMEntities dataBase, int numOfPage, int elemsInPage)
+        {
+            if (numOfPage < 0 || elemsInPage < 1) return;
+            int elemsToSkip = (numOfPage - 1) * elemsInPage;
+            var suppliers = dataBase.Suppliers
+                .Include(s => s.Products)
+                .Include(s => s.Products.Select(p => p.OrderItems))
+                .OrderBy(s => s.CompanyName)
+                .Skip(elemsToSkip)
+                .Take(elemsInPage)
+                .Select(s => new SupplierAnswer()
+                {
+                    CompanyName = s.CompanyName, 
+                    NrProduse = s.Products.Sum(p => p.OrderItems.Sum(oi => oi.Quantity))
+                })
+                .ToList();
+            foreach (var supplier in suppliers)
+            {
+                Console.WriteLine($"Numele companiei: {supplier.CompanyName} \nProduse vandute: {supplier.NrProduse} \n{delimitator}");
+            }
+        }
+
+        class SupplierAnswer
+        {
+            public string CompanyName { get; set; }
+            public Nullable<int> NrProduse { get; set; }
         }
         private static void displaySuppAndQuantityOfProducts(CRMEntities dataBase, int numOfPage, int elemsInPage)
         {
