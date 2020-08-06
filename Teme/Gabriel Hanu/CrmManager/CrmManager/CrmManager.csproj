@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Managers\CustomersManager.cs" />
+    <Compile Include="Managers\SupplierManager.cs" />
     <Compile Include="Models\CrmModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
