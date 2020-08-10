@@ -12,7 +12,7 @@ namespace CrmManager.Managers
         /// <summary>
         /// Get all the customers and display them
         /// </summary>
-        public void DisplayCustomers()
+        public void Display()
         {
             //get the data base on
             CRMEntities db = new CRMEntities();
@@ -24,7 +24,7 @@ namespace CrmManager.Managers
                 Console.WriteLine($"Id-ul: {customer.Id} \nNumele clientului: {customer.FirstName} {customer.LastName} \nOrasul: {customer.City} \nTara: {customer.Country}");
             }
         }
-        public void AddCustomer(Customer customer)
+        public void Add(Customer customer)
         {
             //get the data base on
             CRMEntities db = new CRMEntities();
@@ -33,7 +33,7 @@ namespace CrmManager.Managers
             //save the changes to the data base
             db.SaveChanges();
         }
-        public void ModifyCustomer(int id, string firstName, string lastName, string city, string country)
+        public void Modify(int id, string firstName, string lastName, string city, string country)
         {
             CRMEntities db = new CRMEntities();
             Customer toBeUpdated = db.Customers.Find(id);
@@ -44,18 +44,27 @@ namespace CrmManager.Managers
             toBeUpdated.Country = country;
             db.SaveChanges();
         }
+        public bool VerifyId(string id)
+        {
+            if(int.TryParse(id, out int newId))
+            {
+                if (newId < 1) return false;
+                else if (new CRMEntities().Customers.Find(newId) != null)
+                    return true;
+            }
+            return false;
+        }
         public Customer GetCustomerById(int id)
         {
             return new CRMEntities().Customers.Find(id);
         }
-        public bool DeleteCustomer(int id)
+        public void Delete(int id)
         {
             CRMEntities db = new CRMEntities();
             Customer toBeDeleted = db.Customers.Find(id);
-            if (toBeDeleted == null) return false;
+            if (toBeDeleted == null) return;
             db.Customers.Remove(toBeDeleted);
             db.SaveChanges();
-            return true;
         }
     }
 }  
