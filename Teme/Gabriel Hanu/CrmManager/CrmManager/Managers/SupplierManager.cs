@@ -24,14 +24,13 @@ namespace CrmManager.Managers
             db.Suppliers.Add(supplier);
             db.SaveChanges();
         }
-        public bool Delete(int id)
+        public void Delete(int id)
         {
             CRMEntities db = new CRMEntities();
             Supplier toBeDeleted = db.Suppliers.Find(id);
-            if (toBeDeleted == null) return false;
+            if (toBeDeleted == null) return;
             db.Suppliers.Remove(toBeDeleted);
             db.SaveChanges();
-            return true;
         }
         public bool VerifyId(string id)
         {

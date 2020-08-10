@@ -1,6 +1,7 @@
 ﻿using CrmManager.Managers;
 using CrmManager.Models;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,68 +20,59 @@ namespace CrmManager
             adauga furnizor,
             modifica furnizor,
             sterge furnizor.
-            Implementati fieccare functionalitate.*/
+            Implementati fiecare functionalitate.*/
         static void Main(string[] args)
         {
             CustomersManager customersManager = new CustomersManager();
             SupplierManager supplierManager = new SupplierManager();
             //Create the managers for the customers and suppliers
-
-            //Display the options for the user to choose
-            Console.WriteLine("Bun venit la aplicatia noastra CRM, \nCe actiune vreti sa faceti?\n");
-            Console.WriteLine("1.Afiseaza Clienti, \n2.Adauga Client, \n3.Modifica Client, \n4.Sterge Client,");
+            Console.WriteLine("Bun venit la aplicatia noastra CRM, \nCe actiune vreti sa faceti?");
+            ChooseOption(customersManager, supplierManager);
+            Console.ReadKey();
+        }
+        private static void ChooseOption(CustomersManager customersManager, SupplierManager supplierManager)
+        {
+            Console.WriteLine("\n1.Afiseaza Clienti, \n2.Adauga Client, \n3.Modifica Client, \n4.Sterge Client,");
             Console.WriteLine("5.Afiseaza Furnizori, \n6.Adauga Furnizor, \n7.Modifica Furnizori, \n8.Sterge Furnizor.");
-            //Store the information from the keyboard
             ConsoleKeyInfo tastaApasata = Console.ReadKey();
-
             switch (tastaApasata.Key)
             {
                 case ConsoleKey.D1:
-                    customersManager.DisplayCustomers();
+                    customersManager.Display();
                     break;
                 case ConsoleKey.D2:
                     Customer customer = new Customer();
                     Console.WriteLine($"\nIntroduceti numele noului client:");
-                    customer.FirstName = Console.ReadLine();
+                    customer.FirstName = ProcessText("Numele noului client");
                     Console.WriteLine($"\nIntroduceti prenumele noului client");
-                    customer.LastName = Console.ReadLine();
+                    customer.LastName = ProcessText("Prenumele noului client");
                     Console.WriteLine($"\nIntroduceti tara noului client");
-                    customer.Country = Console.ReadLine();
+                    customer.Country = ProcessText("Tara noului client");
                     Console.WriteLine($"\nIntroduceti orasul noului client");
-                    customer.City = Console.ReadLine();
-                    customersManager.AddCustomer(customer);
+                    customer.City = ProcessText("Orasul noului client");
+                    customersManager.Add(customer);
+                    Console.WriteLine("Client-ul a fost creat cu succes");
                     break;
                 case ConsoleKey.D3:
                     Console.WriteLine("\nIntroduceti id-ul clientului pe care vreti sa il modificati");
-                    string id = Console.ReadLine();
-                    if(int.TryParse(id, out int newId))
-                    {
-                        Customer tempCustomer = customersManager.GetCustomerById(newId);
-                        if(tempCustomer != null)
-                        {
-                            Console.WriteLine($"Prenumele: {tempCustomer.FirstName} \nNumele: {tempCustomer.LastName} \nTara: {tempCustomer.Country} \nOrasul: {tempCustomer.City} \nTelefonul: {tempCustomer.Phone}");
-                            Console.WriteLine("Introduceti noul dvs prenume");
-                            string prenume = Console.ReadLine();
-                            Console.WriteLine("Introduceti noul dvs nume:");
-                            string nume = Console.ReadLine();
-                            Console.WriteLine("Introduceti noul dvs oras");
-                            string oras = Console.ReadLine();
-                            Console.WriteLine("Introduceti noua dvs tara");
-                            string tara = Console.ReadLine();
-                            customersManager.ModifyCustomer(newId, nume, prenume, tara,oras);
-                        }
-                    }
+                    int id = GeoptV2(customersManager);
+                    Customer tempCustomer = customersManager.GetCustomerById(id);
+                    Console.WriteLine($"Prenumele: {tempCustomer.FirstName} \nNumele: {tempCustomer.LastName} \nTara: {tempCustomer.Country} \nOrasul: {tempCustomer.City} \nTelefonul: {tempCustomer.Phone}");
+                    Console.WriteLine("Introduceti noul dvs prenume");
+                    string prenume = ProcessText("Noul dvs prenume");
+                    Console.WriteLine("Introduceti noul dvs nume:");
+                    string nume = ProcessText("Noul dvs nume");
+                    Console.WriteLine("Introduceti noul dvs oras");
+                    string oras = ProcessText("Noul dvs oras");
+                    Console.WriteLine("Introduceti noua dvs tara");
+                    string tara = ProcessText("Noua dvs tara");
+                    customersManager.Modify(id, nume, prenume, tara, oras);
+                    Console.WriteLine("Clientul a fost modificat cu succes");
                     break;
                 case ConsoleKey.D4:
                     Console.WriteLine("\nIntroduceti id-ul clientului pe care vreti sa il stergeti");
-                    string id2 = Console.ReadLine();
-                    if(int.TryParse(id2, out int newId2))
-                    {
-                        if (customersManager.DeleteCustomer(newId2))
-                            Console.WriteLine("Clientul a fost sters cu succes");
-                        else
-                            Console.WriteLine("Id-ul este invalid");
-                    }
+                    customersManager.Delete(GeoptV2(customersManager));
+                    Console.WriteLine("Client-ul a fost sters");
                     break;
                 case ConsoleKey.D5:
                     supplierManager.Display();
@@ -106,7 +98,7 @@ namespace CrmManager
                     Console.WriteLine("Introduceti id-ul pe care vreti sa il modificati");
                     int suppId = Geopt(supplierManager);
                     Supplier tempSupp = new CRMEntities().Suppliers.Find(suppId);
-                    Console.WriteLine($"Numele companiei: {tempSupp.CompanyName} \nNumele de contact: {tempSupp.ContactName} \nTitlul de contact: {tempSupp.ContactTitle} \nOrasul: {tempSupp.City} \nTara: {tempSupp.Country} \nTelefon: {tempSupp.Phone}");
+                    Console.WriteLine($"\nNumele companiei: {tempSupp.CompanyName} \nNumele de contact: {tempSupp.ContactName} \nTitlul de contact: {tempSupp.ContactTitle} \nOrasul: {tempSupp.City} \nTara: {tempSupp.Country} \nTelefon: {tempSupp.Phone}");
                     Console.WriteLine("Introduceti noul nume al companiei:");
                     string CompanyName = ProcessText("Numele companiei");
                     Console.WriteLine("Introduceti noul nume de contact:");
@@ -128,9 +120,35 @@ namespace CrmManager
                     Console.WriteLine("Furnizorul a fost sters!");
                     break;
                 default:
+                    Console.WriteLine("Ai apasat tasta gresita... Mai incearca....");
+                    ChooseOption(customersManager, supplierManager);
                     break;
             }
-            Console.ReadKey();
+            CanContinue(customersManager, supplierManager);
+        }
+        private static void CanContinue(CustomersManager customersManager, SupplierManager supplierManager)
+        {
+            Console.WriteLine("\nDoriti sa faceti alta operatiune?");
+            Option(customersManager, supplierManager);
+
+        }
+        private static void Option(CustomersManager customersManager, SupplierManager supplierManager)
+        {
+            Console.WriteLine("1.Da, \n2.Nu");
+            ConsoleKeyInfo tasta = Console.ReadKey();
+            switch (tasta.Key)
+            {
+                case ConsoleKey.D1:
+                    ChooseOption(customersManager, supplierManager);
+                    break;
+                case ConsoleKey.D2:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Ai apasat tasta gresita... Mai incearca...");
+                    Option(customersManager, supplierManager);
+                    break;
+            }
         }
         private static string ProcessText(string nameOfValue)
         {
@@ -170,8 +188,19 @@ namespace CrmManager
             string id = Console.ReadLine();
             if (!supplierManager.VerifyId(id))
             {
-                Console.WriteLine("Id-ul pe care l-ati introdus este inval id, mai incercati...");
+                Console.WriteLine("Id-ul pe care l-ati introdus este invalid, mai incercati...");
                 return Geopt(supplierManager);
+            }
+            return int.Parse(id);
+        }
+        public static int GeoptV2(CustomersManager customersManager)
+        {
+            
+            string id = Console.ReadLine();
+            if (!customersManager.VerifyId(id))
+            {
+                Console.WriteLine("Id-ul pe care l-ati introdus este invalid, mai incercati...");
+                return GeoptV2(customersManager);
             }
             return int.Parse(id);
         }
