@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="TestMvvmWithMorePages.Views.ModifyClientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMvvmWithMorePages.Views"
+             mc:Ignorable="d" Background="White" FontSize="17"
+             MinHeight="500" Width="800">
+    <Border Padding="10">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Modifica un client" FontSize="25" HorizontalAlignment="Center" Margin="0 5 0 5" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Introduceti id-ul clientului!" Grid.Row="0" Grid.Column="0"
+                           Grid.ColumnSpan="2" HorizontalAlignment="Center" Padding="8"/>
+                <StackPanel  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical">
+                    <TextBlock Text="{Binding StatusId}" FontSize="15" HorizontalAlignment="Center" Foreground="Green"/>
+                    <TextBox HorizontalContentAlignment="Center" Margin="230 5 230 20" 
+                         x:Name="IdValue" Padding="5"/>
+                </StackPanel>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Alegeti proprietatea pe care vreti sa o schimbati!" 
+                           FontSize="18" HorizontalAlignment="Center" Padding="8"/>
+                <ComboBox Grid.Row="3" Grid.Column="0" x:Name="ClientProps" IsEnabled="{Binding IsIdValid}"
+                          HorizontalContentAlignment="Center" Margin="30 20 30 20" 
+                          SelectedItem="{Binding SelectedProp}"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" 
+                           HorizontalAlignment="Center" Padding="8" 
+                           x:Name="SelectedProp"/>
+                <TextBox Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center"
+                         x:Name="ValueToChange" Padding="5" Margin="30 15 30 20" IsEnabled="{Binding IsIdValid}"/>
+                <Button Grid.Row="4" Grid.Column="1" x:Name="Modify" 
+                        Content="Trimite" FontSize="17" Margin="100 10 100 10"
+                        Height="40" Padding="5" Width="180"/>
+                <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" 
+                        Content="Du-te inapoi!" Margin="300 10 300 0" 
+                        x:Name="Exit" Padding="5" Height="35" Width="160"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -1,0 +1,64 @@
+﻿<Window x:Class="TestMvvmWithMorePages.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestMvvmWithMorePages.Views"
+        mc:Ignorable="d" FontSize="18" WindowStartupLocation="CenterScreen"
+        Title="CRM" Width="900" Height="640" Name="CRMdatabase" ResizeMode="CanResize">
+    <Border Padding="10">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Bun venit la baza de date, CRM!"
+                       HorizontalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="Ce doriti sa faceti? Alegeti una dintre optiunile de mai jos!"
+                       HorizontalAlignment="Center"/>
+            <Grid Margin="0 15 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" x:Name="DisplayClients" 
+                        IsEnabled="{Binding BtnIsEnabled}" 
+                        Grid.Row="0" Content="Afiseaza Clienti"
+                        Padding="4" Margin="5" Height="40"/>
+                <Button  Grid.Column="1" x:Name="AddClient"
+                        IsEnabled="{Binding BtnIsEnabled}" 
+                        Grid.Row="0" Content="Adauga Client"
+                        Margin="5" Height="40"/>
+                <Button Grid.Column="2" x:Name="ModifyClient"
+                        IsEnabled="{Binding BtnIsEnabled}"
+                        Grid.Row="0" Content="Modifica Client"
+                        Margin="5" Height="40"/>
+                <Button  Grid.Column="3" x:Name="DeleteClient"
+                        IsEnabled="{Binding BtnIsEnabled}" 
+                        Grid.Row="0" Content="Sterge Client"
+                        Margin="5" Height="40"/>
+                <Button Grid.Column="0" x:Name="DisplaySuppliers"
+                        IsEnabled="{Binding BtnIsEnabled}" 
+                        Grid.Row="1" Content="Afiseaza Furnizori"
+                        Padding="4" Margin="5" Height="40"/>
+                <Button Grid.Column="1" x:Name="AddSupplier" 
+                        IsEnabled="{Binding BtnIsEnabled}" 
+                        Grid.Row="1" Content="Adauga Furnizor"
+                        Margin="5" Height="40"/>
+                <Button  Grid.Column="2" x:Name="ModifySupplier" 
+                        IsEnabled="{Binding BtnIsEnabled}"
+                        Grid.Row="1" Content="Modifica Furnizor"
+                        Margin="5" Height="40"/>
+                <Button  Grid.Column="3" x:Name="DeleteSupplier"
+                        IsEnabled="{Binding BtnIsEnabled}"
+                        Grid.Row="1" Content="Sterge Furnizor"
+                        Margin="5" Height="40"/>
+                <ContentControl x:Name="ActiveItem" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>
