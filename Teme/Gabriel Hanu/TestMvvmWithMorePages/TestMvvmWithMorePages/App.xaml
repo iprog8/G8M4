@@ -1,0 +1,39 @@
+﻿<Application x:Class="TestMvvmWithMorePages.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TestMvvmWithMorePages">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#40916c" BorderThickness="1" CornerRadius="20">
+                                <ContentPresenter x:Name="cp" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" TextBlock.Foreground="White"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="#b7e4c7"/>
+                                    <Setter TargetName="cp" Property="TextBlock.Foreground" Value="#40916c"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#1b4332"/>
+                                    <Setter TargetName="cp" Property="TextBlock.Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#081c15"/>
+                                    <Setter TargetName="cp" Property="TextBlock.Foreground" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:Bootstrapper x:Key="Bootstrapper"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
