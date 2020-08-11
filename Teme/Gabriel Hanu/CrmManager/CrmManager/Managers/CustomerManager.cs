@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrmManager.Managers
 {
-    public class CustomersManager
+    public class CustomerManager
     {
         /// <summary>
         /// Get all the customers and display them

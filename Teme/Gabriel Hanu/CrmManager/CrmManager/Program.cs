@@ -11,26 +11,26 @@ namespace CrmManager
 {
     class Program
     {
-/*        Cand porneste aplicatia sa avem urmatoarele optiuni: 
-            afiseaza clienti,
-            adauga client, 
-            modifica client,
-            sterge client,
-            afiseaza furnizori,
-            adauga furnizor,
-            modifica furnizor,
-            sterge furnizor.
-            Implementati fiecare functionalitate.*/
+        private static string IdInvalid = "Id-ul pe care l-ati introdus este invalid, mai incercati...";
+        private static string TastaGresita = "Ai apasat tasta gresita... Mai incearca...";
+        /*        Cand porneste aplicatia sa avem urmatoarele optiuni: 
+                    afiseaza clienti,
+                    adauga client, 
+                    modifica client,
+                    sterge client,
+                    afiseaza furnizori,
+                    adauga furnizor,
+                    modifica furnizor,
+                    sterge furnizor.
+                    Implementati fiecare functionalitate.*/
         static void Main(string[] args)
         {
-            CustomersManager customersManager = new CustomersManager();
+            CustomerManager customerManager = new CustomerManager();
             SupplierManager supplierManager = new SupplierManager();
-            //Create the managers for the customers and suppliers
             Console.WriteLine("Bun venit la aplicatia noastra CRM, \nCe actiune vreti sa faceti?");
-            ChooseOption(customersManager, supplierManager);
-            Console.ReadKey();
+            ChooseOption(customerManager, supplierManager);
         }
-        private static void ChooseOption(CustomersManager customersManager, SupplierManager supplierManager)
+        private static void ChooseOption(CustomerManager customersManager, SupplierManager supplierManager)
         {
             Console.WriteLine("\n1.Afiseaza Clienti, \n2.Adauga Client, \n3.Modifica Client, \n4.Sterge Client,");
             Console.WriteLine("5.Afiseaza Furnizori, \n6.Adauga Furnizor, \n7.Modifica Furnizori, \n8.Sterge Furnizor.");
@@ -120,21 +120,20 @@ namespace CrmManager
                     Console.WriteLine("Furnizorul a fost sters!");
                     break;
                 default:
-                    Console.WriteLine("Ai apasat tasta gresita... Mai incearca....");
+                    Console.WriteLine(TastaGresita);
                     ChooseOption(customersManager, supplierManager);
                     break;
             }
             CanContinue(customersManager, supplierManager);
         }
-        private static void CanContinue(CustomersManager customersManager, SupplierManager supplierManager)
+        private static void CanContinue(CustomerManager customersManager, SupplierManager supplierManager)
         {
             Console.WriteLine("\nDoriti sa faceti alta operatiune?");
             Option(customersManager, supplierManager);
-
         }
-        private static void Option(CustomersManager customersManager, SupplierManager supplierManager)
+        private static void Option(CustomerManager customersManager, SupplierManager supplierManager)
         {
-            Console.WriteLine("1.Da, \n2.Nu");
+            Console.WriteLine("1.Da \n2.Nu");
             ConsoleKeyInfo tasta = Console.ReadKey();
             switch (tasta.Key)
             {
@@ -145,7 +144,7 @@ namespace CrmManager
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("Ai apasat tasta gresita... Mai incearca...");
+                    Console.WriteLine(TastaGresita);
                     Option(customersManager, supplierManager);
                     break;
             }
@@ -188,18 +187,18 @@ namespace CrmManager
             string id = Console.ReadLine();
             if (!supplierManager.VerifyId(id))
             {
-                Console.WriteLine("Id-ul pe care l-ati introdus este invalid, mai incercati...");
+                Console.WriteLine(IdInvalid);
                 return Geopt(supplierManager);
             }
             return int.Parse(id);
         }
-        public static int GeoptV2(CustomersManager customersManager)
+        public static int GeoptV2(CustomerManager customersManager)
         {
             
             string id = Console.ReadLine();
             if (!customersManager.VerifyId(id))
             {
-                Console.WriteLine("Id-ul pe care l-ati introdus este invalid, mai incercati...");
+                Console.WriteLine(IdInvalid);
                 return GeoptV2(customersManager);
             }
             return int.Parse(id);
