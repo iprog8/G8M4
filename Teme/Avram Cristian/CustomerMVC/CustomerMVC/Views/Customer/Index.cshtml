@@ -1,0 +1,26 @@
+﻿@model ICollection<CustomerMVC.Models.Customer>
+
+@{
+    ViewBag.Title = "Customers List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table>
+    <tr class="table-bordered table-condensed" style="color:black">
+        <td class="table-bordered table-condensed" style="color:black">Nume</td>
+        <td class="table-bordered table-condensed" style="color:black">Prenume</td>
+        <td class="table-bordered table-condensed" style="color:black">Telefon</td>
+    </tr>
+    @foreach (var customers in Model)
+
+    {
+<tr class="table-bordered table-condensed" style="color:black">
+    <td class="table-bordered table-condensed" style="color:black">@customers.FirstName</td>
+    <td class="table-bordered table-condensed" style="color:black">@customers.LastName</td>
+    <td class="table-bordered table-condensed" style="color:black">@customers.Phone</td>
+</tr>
+    }
+</table>
+
