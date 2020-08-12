@@ -1,0 +1,33 @@
+﻿@model ICollection<CrmManagerMvc.Models.Supplier>
+
+@{
+    ViewBag.Title = "Prima pagina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table>
+    <tr class="table-bordered">
+        <td class="table-bordered">Numele companiei</td>
+        <td class="table-bordered">Numele de contact</td>
+        <td class="table-bordered">Titlul de contact</td>
+        <td class="table-bordered">Oras</td>
+        <td class="table-bordered">Tara</td>
+        <td class="table-bordered">Numar de telefon</td>
+        <td class="table-bordered">Fax</td>
+    </tr>
+    @foreach (var supplier in Model)
+    {
+<tr class="table-bordered">
+    <td class="table-bordered">@supplier.CompanyName</td>
+    <td class="table-bordered">@supplier.ContactName</td>
+    <td class="table-bordered">@supplier.ContactTitle</td>
+    <td class="table-bordered">@supplier.City</td>
+    <td class="table-bordered">@supplier.Country</td>
+    <td class="table-bordered">@supplier.Phone</td>
+    <td class="table-bordered">@supplier.Fax</td>
+</tr>
+    }
+</table>
+
