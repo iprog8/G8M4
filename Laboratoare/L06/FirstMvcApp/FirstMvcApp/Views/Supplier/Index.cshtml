@@ -1,16 +1,33 @@
 ﻿@model ICollection<FirstMvcApp.Models.Supplier>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Furnizori";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index Bazu</h2>
+<h2>@ViewBag.Title</h2>
 
-<ol>
+<table>
+    <tr class="table-bordered table-condensed" style="color:red">
+        <td class="table-bordered table-condensed"> Companie</td>
+        <td class="table-bordered table-condensed"> Contact</td>
+        <td class="table-bordered table-condensed"> Telefon</td>
+        <td class="table-bordered table-condensed"> Actiuni</td>
+
+    </tr>
     @foreach (var supplier in Model)
     {
-        <li>@supplier.CompanyName - @supplier.ContactName Tel: @supplier.Phone </li>
+<tr class="table-bordered table-condensed">
+    <td class="table-bordered table-condensed"> @supplier.CompanyName</td>
+    <td class="table-bordered table-condensed"> @supplier.ContactName</td>
+    <td class="table-bordered table-condensed"> @supplier.Phone</td>
+    <td class="table-bordered table-condensed">
+        @Html.ActionLink("Editare", "Edit", "Supplier", new { id = supplier.Id }, null) |
+        @Html.ActionLink("Sterge", "Delete", "Supplier")
+    </td>
+</tr>
     }
-</ol>
+</table>
+
+
 
