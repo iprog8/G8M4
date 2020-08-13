@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.dark-theme{
+    background-color:#191616;
+    color:aquamarine;
+}

@@ -5,7 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{ 
+    //bag ce cod C# vrea muschiu meu
+    //intrebarea e ... Vreau? NU!
+    int a = 7;
+    var abcd = "bere";
+    //aici putem scrie DOAR cod C#
+}
+
 <h2>Index</h2>
+
+@a
+@abcd
+
+@if(abcd is string)
+{
+    <p>berea e string</p>
+}
+else
+{
+    <p>Berea nu stuy ce e   </p>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
