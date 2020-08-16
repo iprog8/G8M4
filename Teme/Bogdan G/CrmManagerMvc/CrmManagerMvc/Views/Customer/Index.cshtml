@@ -1,0 +1,32 @@
+﻿@model  ICollection<CrmManagerMvc.Models.Customer>
+
+@{
+    ViewBag.Title = "Clienti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table>
+    <tr class=" table-responsive, active, table-condensed, table-bordered" style="color:crimson">
+        <td class=" table-responsive, active, table-condensed, table-bordered">Nume</td>
+        <td class=" table-responsive, active, table-condensed, table-bordered">Adresa</td>
+        <td class=" table-responsive, active, table-condensed, table-bordered">Telefon</td>
+        <td class=" table-responsive, active, table-condensed, table-bordered">Actiuni</td>
+    </tr>
+
+        @foreach (var customer in Model)
+        {
+            <tr class=" table-responsive, active, table-condensed, table-bordered">
+                <td>@customer.FirstName  @customer.LastName</td>
+                <td>@customer.City , @customer.Country</td>
+                <td>@customer.Phone</td>
+                <td class=" table-responsive, active, table-condensed, table-bordered">
+                    @Html.ActionLink("Editare", "Edit", "Customer", new { id = customer.Id }, null) |
+                    @Html.ActionLink("Detalii", "Details", "Customer", new { id = customer.Id }, null) |
+                    @Html.ActionLink("Sterge", "Delete", "Customer")
+                </td>
+            </tr>
+        }
+</table>
+
