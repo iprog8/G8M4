@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+/*Copy pasta code*/
+.theme-white {
+    background-color:#f1eeee;
+    color:#100e0e;
+}
+.theme-dark {
+    background-color:#100e0e;
+    color:#d8d8d8;
+}
+/*Copy pasta code*/
+
