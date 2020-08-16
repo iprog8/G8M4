@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,8 +15,8 @@ namespace CrmManagerMvc
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{theme}/{language}/{controller}/{action}/{id}",
+                defaults: new {theme = "theme-white", language = "en", controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

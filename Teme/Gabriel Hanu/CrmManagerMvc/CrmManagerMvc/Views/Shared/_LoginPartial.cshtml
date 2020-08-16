@@ -1,4 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
+@{ 
+    var lang = ViewContext.RouteData.Values.FirstOrDefault(s => s.Key == "language").Value.ToString();
+    switch (lang)
+    {
+        case "en":
+            break;
+        case "ro":
+            break;
+        default:
+            break;
+    }
+}
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -15,8 +27,22 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</a>
+        <div class="dropdown-menu">
+            <h5 class="dropdown-item" href="#">@Html.ActionLink("Romana", ViewContext.RouteData.Values["action"].ToString(), new { language = "ro" })</h5>
+            <h5 class="dropdown-item" href="#">@Html.ActionLink("English", ViewContext.RouteData.Values["action"].ToString(), new { language = "en" })</h5>
+        </div>
+    </li>
+    <li>
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Theme</a>
+        <div class="dropdown-menu">
+            <h5 class="dropdown-item" href="#">@Html.ActionLink("White", ViewContext.RouteData.Values["action"].ToString(), new { theme = "theme-white" })</h5>
+            <h5 class="dropdown-item" href="#">@Html.ActionLink("Dark", ViewContext.RouteData.Values["action"].ToString(), new { theme = "theme-dark" })</h5>
+        </div>
+    </li>
+</ul>
 }
