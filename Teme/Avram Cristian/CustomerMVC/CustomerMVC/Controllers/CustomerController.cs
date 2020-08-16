@@ -18,5 +18,13 @@ namespace CustomerMVC.Controllers
 
             return View(customers);
         }
+
+        public ActionResult Index2()
+        {
+            CRMEntities db = new CRMEntities();
+            ICollection<Customer> customers = db.Customers.ToList();
+
+            return View(customers);
+        }
     }
 }

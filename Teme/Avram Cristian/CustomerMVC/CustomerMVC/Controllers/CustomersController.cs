@@ -8,16 +8,39 @@ using System.Web;
 using System.Web.Mvc;
 using CustomerMVC.Models;
 
+
 namespace CustomerMVC.Controllers
 {
     public class CustomersController : Controller
     {
         private CRMEntities db = new CRMEntities();
+        public ActionResult Clients()
+        {
+            var language = this.RouteData.Values.FirstOrDefault(s => s.Key == "lang");
+
+            if (language.Value.ToString() == "ro")
+            {
+                return View(Index());
+            }
+            else if (language.Value.ToString() == "en")
+            {
+                return View(Index2());
+            }
+
+            return View();
+        }
 
         // GET: Customers
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
+        }
+        public ActionResult Index2()
+        {
+            CRMEntities db = new CRMEntities();
+            ICollection<Customer> customers = db.Customers.ToList();
+
+            return View(customers);
         }
 
         // GET: Customers/Details/5

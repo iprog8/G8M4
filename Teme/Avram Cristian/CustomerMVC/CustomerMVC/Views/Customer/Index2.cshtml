@@ -1,17 +1,19 @@
-﻿@model ICollection<CustomerMVC.Models.Customer>
+﻿
+
+@model ICollection<CustomerMVC.Models.Customer>
 
 @{
-    ViewBag.Title = "Lista clienti";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Clients List";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <table>
     <tr class="table-bordered table-condensed" style="color:black">
-        <td class="table-bordered table-condensed" style="color:black">Nume</td>
-        <td class="table-bordered table-condensed" style="color:black">Prenume</td>
-        <td class="table-bordered table-condensed" style="color:black">Telefon</td>
+        <td class="table-bordered table-condensed" style="color:black">First Name</td>
+        <td class="table-bordered table-condensed" style="color:black">Last Name</td>
+        <td class="table-bordered table-condensed" style="color:black">Phone</td>
     </tr>
     @foreach (var customers in Model)
 
@@ -23,4 +25,5 @@
 </tr>
     }
 </table>
+
 
