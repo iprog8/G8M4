@@ -19,7 +19,7 @@ namespace L5_CRM_Site
 
             /*1.CRM trebuie sa faca un site in care sa includa o pagina in care administratorul site - ului sa vada lista de furnizori si numarul de produse pe care acestia le detin.
             Creati un query folosind lambda expression care sa afiseze doar 10 elemente pe pagina.*/
-            /*var suppliers = db.Suppliers
+            var suppliers = db.Suppliers
                 .Include(p => p.Products)
                 .Select(s => new SuppliersManager()
                 {
@@ -31,7 +31,7 @@ namespace L5_CRM_Site
             foreach (var supplier in suppliers)
             {
                 Console.WriteLine($"The company {supplier.companyName} has {supplier.products}  products");
-            }*/
+            }
             
 
             //2.Plecand de la punctul 1 afisati pagina 3.
@@ -75,20 +75,36 @@ namespace L5_CRM_Site
             {
                 Console.WriteLine($"Order number {order2.Id} has a total of {order2.OrderItems.Sum(oi => oi.Quantity)} products sold");
             }
+            //Console.ReadKey();
             //4.Sa selectati toti furnizorii si sa afisati si cate produse vinde fiecare. Sa se afiseze cate 10 se elemente pe pagina pentru prima si ultima Pagina*/
             var suppliers4 = db.Suppliers
                 .Include(s => s.Products)
                 .Include(s => s.Products.Select(p => p.OrderItems))
                 .OrderBy(s => s.CompanyName)
-                .Skip(10)
                 .Take(10)
                 .ToList();
             foreach (var supplier in suppliers4)
             {
                 Console.WriteLine($"The Supplier {supplier.CompanyName} has sold {supplier.Products.Sum(p=>p.OrderItems.Sum(oi => oi.Quantity))} products");
             }
+            //Console.ReadKey();
+            int lastPage = GetLastPage(db.Suppliers, 10);
+            var suppliersLastPage = db.Suppliers
+                .Include(s => s.Products)
+                .Include(s => s.Products.Select(p => p.OrderItems))
+                .OrderBy(s => s.CompanyName)
+                .Skip(lastPage)
+                .Take(10)
+                .ToList();
+            foreach (var supplier in suppliersLastPage)
+            {
+                Console.WriteLine($"The Supplier {supplier.CompanyName} has sold {supplier.Products.Sum(p => p.OrderItems.Sum(oi => oi.Quantity))} products");
+            }
             Console.ReadKey();
-
+        }
+        private static int GetLastPage(DbSet<Supplier> suppliers, int itemsPerPage)
+        {
+            return (int)Math.Ceiling(suppliers.Count() / (double)itemsPerPage);
         }
     }
 }
