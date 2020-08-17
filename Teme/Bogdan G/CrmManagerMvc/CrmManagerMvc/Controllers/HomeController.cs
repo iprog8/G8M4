@@ -22,7 +22,22 @@ namespace CrmManagerMvc.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            var language = this.RouteData.Values.FirstOrDefault(s => s.Key == "lang");
+            if(language.Value.ToString() == "ro")
+            {
+                ViewBag.Title = "Salut!";
+                ViewBag.Message = "Pagina ta de contact.";
+            }
+            else if (language.Value.ToString() == "en")
+            {
+                ViewBag.Title = "Hello!";
+                ViewBag.Message = "Your contact page.";
+            }
+            else if (language.Value.ToString() == "fr")
+            {
+                ViewBag.Title = "Bonjour!";
+                ViewBag.Message = "Omelette au fromage.";
+            }
 
             return View();
         }
