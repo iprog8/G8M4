@@ -10,18 +10,8 @@ namespace CrmManagerMvc.Controllers
     {
         public ActionResult Index()
         {
-            var lang = this.RouteData.Values.FirstOrDefault(s => s.Key == "language");
-            switch (lang.Value.ToString())
-            {
-                case "en":
-                    ViewBag.Title = "Home page";
-                    break;
-                case "ro":
-                    ViewBag.Title = "Acasa";
-                    break;
-                default:
-                    break;
-            }
+            ViewBag.Title = "Home page";
+            
             return View();
         }
 

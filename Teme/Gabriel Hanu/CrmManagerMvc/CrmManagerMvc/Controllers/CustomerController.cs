@@ -1,6 +1,7 @@
 ﻿using CrmManagerMvc.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,18 @@ namespace CrmManagerMvc.Controllers
         // GET: Customer
         public ActionResult Index()
         {
+            string lang = this.RouteData.Values["language"].ToString();
+            switch (lang)
+            {
+                case "en":
+                    ViewBag.Title = "List of customers";
+                    break;
+                case "ro":
+                    ViewBag.Title = "Lista de clienti";
+                    break;
+                default:
+                    break;
+            }
             CRMEntities db = new CRMEntities();
             ICollection<Customer> customers = db.Customers.ToList();
             return View(customers);

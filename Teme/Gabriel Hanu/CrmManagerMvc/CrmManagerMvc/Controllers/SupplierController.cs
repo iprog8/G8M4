@@ -14,6 +14,7 @@ namespace CrmManagerMvc.Controllers
         [HttpGet]
         public ActionResult Index(int nrPagina)
         {
+            SetTitle();
             int elemsToTake = 10;
             CRMEntities db = new CRMEntities();
             if (db.Suppliers.Count() / 10 < nrPagina || nrPagina < 0) return HttpNotFound();
@@ -27,11 +28,27 @@ namespace CrmManagerMvc.Controllers
         [HttpGet]
         public ActionResult Paging(int pageNumber)
         {
+            SetTitle();
             int pageSize = 10;
             CRMEntities db = new CRMEntities();
             if (db.Suppliers.Count() / 10 < pageNumber || pageNumber < 0) return HttpNotFound();
             ICollection<Supplier> model = db.Suppliers.ToList();
             return View(model.ToPagedList(pageNumber, pageSize));
+        }
+        private void SetTitle()
+        {
+            string lang = this.RouteData.Values.FirstOrDefault(v => v.Key == "language").Value.ToString();
+            switch (lang)
+            {
+                case "ro":
+                    ViewBag.Title = "Lista furnizori";
+                    break;
+                case "en":
+                    ViewBag.Title = "List of suppliers";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
