@@ -21,7 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li> 
                     <li>@Html.ActionLink("Clienti", "Index", "Customer")</li>
                     <li>@Html.ActionLink("Furnizori", "Index", "Supplier", new { nrPagina = 1}, null)</li>
                     <li>@Html.ActionLink("Furnizori cu paginare", "Paging", "Supplier", new { pageNumber = 1}, null)</li>
@@ -29,6 +29,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_LanguagePartial")
             </div>
         </div>
     </div>

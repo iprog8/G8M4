@@ -1,19 +1,46 @@
 ﻿@model ICollection<CrmManagerMvc.Models.Customer>
 
 @{
-    ViewBag.Title = "Clienti";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string details = string.Empty;
+    string firstName = string.Empty;
+    string secondName = string.Empty;
+    string country = string.Empty;
+    string city = string.Empty;
+    string phoneNumber = string.Empty;
+    string lang = ViewContext.RouteData.Values["language"].ToString();
+    switch (lang)
+    {
+        case "en":
+            firstName = "First name";
+            secondName = "Second name";
+            country = "Country";
+            city = "City";
+            phoneNumber = "Phone number";
+            details = "Details";
+            break;
+        case "ro":
+            firstName = "Name";
+            secondName = "Prenume";
+            country = "Tara";
+            city = "Oras";
+            phoneNumber = "Numar de telefon";
+            details = "Detalii";
+            break;
+        default:
+            break;
+    }
 }
 
 <h2>@ViewBag.Title</h2>
 
 <table>
     <tr class="table-bordered">
-        <td class="table-bordered">Nume</td>
-        <td class="table-bordered">Prenume</td>
-        <td class="table-bordered">Tara</td>
-        <td class="table-bordered">Oras</td>
-        <td class="table-bordered">Numar de telefon</td>
+        <td class="table-bordered">@firstName</td>
+        <td class="table-bordered">@secondName</td>
+        <td class="table-bordered">@country</td>
+        <td class="table-bordered">@city</td>
+        <td class="table-bordered">@phoneNumber</td>
     </tr>
     @foreach (var customer in Model)
     {
@@ -24,7 +51,7 @@
     <td class="table-bordered">@customer.City</td>
     <td class="table-bordered">@customer.Phone</td>
     <td class="table-bordered">
-        @Html.ActionLink("Detalii", "Details", "Customer", new { id = customer.Id}, null)
+        @Html.ActionLink(details, "Details", "Customer", new { id = customer.Id}, null)
     </td>
 </tr>
     }
