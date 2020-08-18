@@ -12,7 +12,12 @@ namespace FirstMvcApp.Controllers
 {
     public class CustomersController : Controller
     {
-        private CRMEntities db = new CRMEntities();
+        private CRMEntities db;// = new CRMEntities();
+
+        public CustomersController()
+        {
+            db = new CRMEntities();
+        }
 
         // GET: Customers
         public ActionResult Index()
