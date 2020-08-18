@@ -13,6 +13,19 @@ namespace CustomerMVC.Controllers
         // GET: Customer
         public ActionResult Index()
         {
+            var language = this.RouteData.Values.FirstOrDefault(s => s.Key == "lang");
+
+            if (language.Value.ToString() == "ro")
+            {
+                ViewBag.Title = "Lista Clienti";
+                ViewBag.FirstName = "First name";
+
+            }
+            else if (language.Value.ToString() == "en")
+            {
+                ViewBag.Title = "Customer List";
+                ViewBag.FirstName = "First name";
+            }
             CRMEntities db = new CRMEntities();
             ICollection<Customer> customers = db.Customers.ToList();
 

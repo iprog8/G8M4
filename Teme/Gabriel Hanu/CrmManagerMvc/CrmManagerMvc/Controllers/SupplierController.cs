@@ -20,7 +20,7 @@ namespace CrmManagerMvc.Controllers
             if (db.Suppliers.Count() / 10 < nrPagina || nrPagina < 0) return HttpNotFound();
             ICollection<Supplier> model = db.Suppliers
                 .OrderBy(s => s.CompanyName)
-                .Skip(nrPagina - 1)
+                .Skip((nrPagina - 1) * elemsToTake)
                 .Take(elemsToTake)
                 .ToList();
             return View(model);
@@ -31,7 +31,8 @@ namespace CrmManagerMvc.Controllers
             SetTitle();
             int pageSize = 10;
             CRMEntities db = new CRMEntities();
-            if (db.Suppliers.Count() / 10 < pageNumber || pageNumber < 0) return HttpNotFound();
+            double elements = db.Suppliers.Count();
+            if (Math.Ceiling(elements / 10) < pageNumber || pageNumber < 0) return HttpNotFound();
             ICollection<Supplier> model = db.Suppliers.ToList();
             return View(model.ToPagedList(pageNumber, pageSize));
         }
