@@ -1,0 +1,31 @@
+﻿@model ICollection<L7CrmManager_MVC_.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table>
+    <tr class="table-bordered">
+        <td class="table-bordered">FirstName</td>
+        <td class="table-bordered">LastName</td>
+        <td class="table-bordered">Country</td>
+        <td class="table-bordered">City</td>
+        <td class="table-bordered">Phone</td>
+    </tr>
+    @foreach (var customer in Model)
+    {
+        <tr class="table-bordered">
+            <td class="table-bordered">@customer.FirstName</td>
+            <td class="table-bordered">@customer.LastName</td>
+            <td class="table-bordered">@customer.Country</td>
+            <td class="table-bordered">@customer.City</td>
+            <td class="table-bordered">@customer.Phone</td>
+            <td class="table-bordered">
+                @Html.ActionLink("Details", "Details", "Customer", new { id = customer.Id }, null)
+            </td>
+        </tr>
+    }
+</table>
