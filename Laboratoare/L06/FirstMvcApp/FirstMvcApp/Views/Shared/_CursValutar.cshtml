@@ -1,0 +1,14 @@
+﻿@model ICollection<FirstMvcApp.Models.Currency>
+
+<div>
+    <div>
+        Curs valutar valabil pe data de @DateTime.Now.ToShortDateString()
+    </div>
+    <ul>
+        @foreach (var currency in Model)
+        {
+            <li>1 @currency.Valuta = @currency.Paritate RON</li>
+        }
+    </ul>
+    @Html.Partial("_DateTimegeneration")
+</div>

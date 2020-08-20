@@ -32,9 +32,21 @@
         </div>
     </div>
     <div class="container body-content">
+        
         <hr />
-        @RenderBody()
+        <div class="row">
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+            <div class="col-md-3">
+                @{
+                    Html.RenderAction("_CursValutar", "Currency");
+                }
+            </div>
+        </div>
+        
         <hr />
+        @Html.Partial("_DateTimegeneration")
         <footer>
             <p>&copy; @DateTime.Now.Year - My First Mvc App</p>
         </footer>
