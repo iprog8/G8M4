@@ -1,4 +1,4 @@
-﻿@model ICollection<FirstMvcApp.Models.Supplier>
+﻿@model FirstMvcApp.ViewModels.SupplierIndexViewModel
 
 @{
     ViewBag.Title = "Furnizori";
@@ -7,6 +7,8 @@
 
 <h2>@ViewBag.Title</h2>
 
+
+@Html.Partial("_Pagging", Model.PageInfo)
 <table>
     <tr class="table-bordered table-condensed" style="color:red">
         <td class="table-bordered table-condensed"> Companie</td>
@@ -15,19 +17,21 @@
         <td class="table-bordered table-condensed"> Actiuni</td>
 
     </tr>
-    @foreach (var supplier in Model)
+    @foreach (var supplier in Model.SupplierList)
     {
-<tr class="table-bordered table-condensed">
-    <td class="table-bordered table-condensed"> @supplier.CompanyName</td>
-    <td class="table-bordered table-condensed"> @supplier.ContactName</td>
-    <td class="table-bordered table-condensed"> @supplier.Phone</td>
-    <td class="table-bordered table-condensed">
-        @Html.ActionLink("Editare", "Edit", "Supplier", new { id = supplier.Id }, null) |
-        @Html.ActionLink("Sterge", "Delete", "Supplier")
-    </td>
-</tr>
+        <tr class="table-bordered table-condensed">
+            <td class="table-bordered table-condensed"> @supplier.CompanyName</td>
+            <td class="table-bordered table-condensed"> @supplier.ContactName</td>
+            <td class="table-bordered table-condensed"> @supplier.Phone</td>
+            <td class="table-bordered table-condensed">
+                @Html.ActionLink("Editare", "Edit", "Supplier", new { id = supplier.Id }, null) |
+                @Html.ActionLink("Sterge", "Delete", "Supplier")
+            </td>
+        </tr>
     }
 </table>
 
+
+@Html.Partial("_Pagging", Model.PageInfo)
 
 

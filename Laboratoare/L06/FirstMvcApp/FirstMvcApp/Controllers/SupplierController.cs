@@ -5,16 +5,39 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FirstMvcApp.Models;
+using FirstMvcApp.ViewModels;
 
 namespace FirstMvcApp.Controllers
 {
     public class SupplierController : Controller
     {
+        public int ItemsPerPage { get; set; } = 10;
+
+        //public SupplierController()
+        //{
+        //    ItemsPerPage = 10;
+        //}
+
         // GET: Supplier
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
+            SupplierIndexViewModel model = new SupplierIndexViewModel();
             CRMEntities db = new CRMEntities();
-            ICollection<Supplier> model = db.Suppliers.Where(s => s.CompanyName.Contains("a")).ToList();
+            model.PageInfo.CurrentPage = page;
+            model.SupplierList = db.Suppliers.Select(
+                    s => new SupplierViewModel
+                    {
+                        Id = s.Id,
+                        CompanyName = s.CompanyName,
+                        ContactName = s.ContactName,
+                        Phone = s.Phone
+                    }
+                )
+                .OrderBy(s => s.CompanyName)
+                .Skip(ItemsPerPage * (page-1))
+                .Take(ItemsPerPage)
+                .ToList();
+            model.PageInfo.MaxPage = Math.Ceiling(db.Suppliers.Count() / (double)ItemsPerPage);
 
             return View(model);
         }
