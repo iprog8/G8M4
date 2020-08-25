@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrmManagerMvc.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,6 +28,11 @@ namespace CrmManagerMvc.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult _GlumaZilei()
+        {
+            var model = new Glume();
+            return PartialView(model);
         }
     }
 }

@@ -2,50 +2,19 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    string cp = string.Empty;
-    string cn = string.Empty;
-    string ct = string.Empty;
-    string city = string.Empty;
-    string country = string.Empty;
-    string pn = string.Empty;
-    string fax = string.Empty;
-    string lang = ViewContext.RouteData.Values["language"].ToString();
-    switch (lang)
-    {
-        case "en":
-            cp = "Company name";
-            cn = "Contact name";
-            ct = "Contact title";
-            city = "City";
-            country = "Country";
-            pn = "Phone number";
-            fax = "Fax";
-            break;
-        case "ro":
-            cp = "Numele companiei";
-            cn = "Numele de contact";
-            ct = "Titlul de contact";
-            city = "Oras";
-            country = "Tara";
-            pn = "Numar de telefon";
-            fax = "Fax";
-            break;
-        default:
-            break;
-    }
 }
 
 <h2>@ViewBag.Title</h2>
 
 <table>
     <tr class="table-bordered">
-        <td class="table-bordered">@cp</td>
-        <td class="table-bordered">@cn</td>
-        <td class="table-bordered">@ct</td>
-        <td class="table-bordered">@city</td>
-        <td class="table-bordered">@country</td>
-        <td class="table-bordered">@pn</td>
-        <td class="table-bordered">@fax</td>
+        <td class="table-bordered">Company name</td>
+        <td class="table-bordered">Contact name</td>
+        <td class="table-bordered">Contact title</td>
+        <td class="table-bordered">City</td>
+        <td class="table-bordered">Country</td>
+        <td class="table-bordered">Phone</td>
+        <td class="table-bordered">Fax</td>
     </tr>
     @foreach (var supplier in Model)
     {
@@ -60,4 +29,7 @@
         </tr>
     }
 </table>
+@{ 
+    Html.Partial("_DummyPartial");
+}
 

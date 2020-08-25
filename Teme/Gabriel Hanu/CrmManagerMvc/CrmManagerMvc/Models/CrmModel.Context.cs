@@ -30,5 +30,6 @@ namespace CrmManagerMvc.Models
         public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<Page> Pages { get; set; }
     }
 }
