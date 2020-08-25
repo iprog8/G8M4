@@ -23,7 +23,7 @@ namespace L7CrmManager_MVC_
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrapsolar.css",
                       "~/Content/site.css"));
         }
     }
