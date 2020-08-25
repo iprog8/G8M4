@@ -27,3 +27,10 @@ textarea {
     background-color:#191616;
     color:aquamarine;
 }
+
+ul.pagg {
+    list-style-type: none;
+}
+li.pagg{
+    display: inline;
+}
