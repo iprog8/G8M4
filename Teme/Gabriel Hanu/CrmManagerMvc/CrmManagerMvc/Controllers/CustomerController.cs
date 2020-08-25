@@ -38,5 +38,12 @@ namespace CrmManagerMvc.Controllers
                 return HttpNotFound();
             return View(model);
         }
+        //GET: Total Customers
+        public ActionResult _NumarTotalClienti()
+        {
+            var model = new CustomersDetails();
+            model.TotalCustomers = new CRMEntities().Customers.Count();
+            return PartialView(model);
+        }
     }
 }

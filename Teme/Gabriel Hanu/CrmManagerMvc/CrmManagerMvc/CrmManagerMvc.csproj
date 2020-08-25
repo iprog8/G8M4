@@ -175,6 +175,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccesariController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -202,12 +203,17 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>CrmModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Glume.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NumarAccesari.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>CrmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderItem.cs">
+      <DependentUpon>CrmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Page.cs">
       <DependentUpon>CrmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
@@ -216,6 +222,7 @@
     <Compile Include="Models\Supplier.cs">
       <DependentUpon>CrmModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomersDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -298,10 +305,13 @@
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Supplier\Paging.cshtml" />
     <Content Include="Views\Shared\_LanguagePartial.cshtml" />
+    <Content Include="Views\Shared\_NumarAccesari.cshtml" />
+    <Content Include="Views\Supplier\_DummyPartial.cshtml" />
+    <Content Include="Views\Customer\_NumarTotalClienti.cshtml" />
+    <Content Include="Views\Home\_GlumaZilei.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Language\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
