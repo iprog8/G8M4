@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FirstMvcApp.Models.Customer>
+﻿@model FirstMvcApp.ViewModels.CustomerIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -33,34 +33,22 @@ else
 <table class="table" style="color:darkred">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            FullName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+           Country
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Phone
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.CustomerList)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
@@ -77,3 +65,12 @@ else
     }
 @a
 </table>
+@for (int i =1; i<=Model.PageInfo.MaxPage;i++)
+{
+    @Html.ActionLink(i.ToString(), "Index", new { page = i});
+
+<span>&nbsp;</span>
+
+}
+
+@Html.Partial("_Pagging", Model.PageInfo)

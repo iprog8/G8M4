@@ -216,7 +216,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CustomerIndexViewModel.cs" />
+    <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\FilterInfoViewModel.cs" />
     <Compile Include="ViewModels\PageInfoViewModel.cs" />
+    <Compile Include="ViewModels\SortInfoViewModel.cs" />
     <Compile Include="ViewModels\SupplierIndexViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModel.cs" />
   </ItemGroup>
