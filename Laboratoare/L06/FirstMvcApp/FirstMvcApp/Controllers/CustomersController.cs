@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FirstMvcApp.Models;
+using FirstMvcApp.ViewModels;
 
 namespace FirstMvcApp.Controllers
 {
@@ -20,9 +21,24 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(int page =1)
         {
-            return View(db.Customers.ToList());
+            var elementsOnPage = 10;
+            var model = new CustomerIndexViewModel();
+            model.CustomerList = db.Customers.Select(s => new CustomerViewModel
+            {
+                Country = s.Country,
+                FullName = s.FirstName + " " + s.LastName,
+                Id = s.Id,
+                Phone = s.Phone
+            })
+            .OrderBy(c => c.FullName)
+            .Skip(elementsOnPage*(page -1))
+            .Take(elementsOnPage)
+            .ToList();
+            model.PageInfo.CurrentPage = page;
+            model.PageInfo.MaxPage = Math.Ceiling(db.Customers.Count() / 10.0);
+            return View(model);
         }
 
         // GET: Customers/Details/5

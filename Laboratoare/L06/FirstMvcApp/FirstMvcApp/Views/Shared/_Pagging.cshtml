@@ -1,16 +1,15 @@
 ﻿@model FirstMvcApp.ViewModels.PageInfoViewModel
-<ul>
+<div>
     @for (int i = 1; i <= Model.MaxPage; i++)
     {
-        <li class="pagg">
-            @if (Model.CurrentPage != i)
+            if (Model.CurrentPage != i)
             {
                 @Html.ActionLink(i.ToString(), "Index", new { page = i })
             }
             else
             {
-                @i
+    <b>@i</b>
             }
-        </li>
+        <span>&nbsp;</span>
     }
-</ul>
+</div>
