@@ -227,7 +227,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RankingPages.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CustomerIndexViewModel.cs" />
+    <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\PageInfoViewModel.cs" />
     <Compile Include="ViewModels\RankingViewModel.cs" />
+    <Compile Include="ViewModels\SupplierIndexViewModel.cs" />
+    <Compile Include="ViewModels\SupplierViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -306,13 +311,13 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
-    <Content Include="Views\Supplier\Paging.cshtml" />
     <Content Include="Views\Shared\_LanguagePartial.cshtml" />
     <Content Include="Views\Shared\_NumarAccesari.cshtml" />
     <Content Include="Views\Supplier\_DummyPartial.cshtml" />
     <Content Include="Views\Customer\_NumarTotalClienti.cshtml" />
     <Content Include="Views\Home\_GlumaZilei.cshtml" />
     <Content Include="Views\Shared\_RankingPartial.cshtml" />
+    <Content Include="Views\Shared\_Pagging.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

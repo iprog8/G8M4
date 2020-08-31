@@ -12,5 +12,6 @@ namespace CrmManagerMvc.ViewModels
         public string Nume { get; set; }
         public int NumarAccesari { get; set; }
         public string ControllerName { get; set; }
+        public string ViewName { get; set; } = "Details";
     }
 }

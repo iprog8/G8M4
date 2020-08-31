@@ -1,4 +1,5 @@
 ﻿using CrmManagerMvc.Models;
+using CrmManagerMvc.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,7 +12,7 @@ namespace CrmManagerMvc.Controllers
     public class CustomerController : Controller
     {
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             string lang = this.RouteData.Values["language"].ToString();
             switch (lang)
@@ -25,9 +26,26 @@ namespace CrmManagerMvc.Controllers
                 default:
                     break;
             }
+
+            CustomerIndexViewModel model = new CustomerIndexViewModel();
             CRMEntities db = new CRMEntities();
-            ICollection<Customer> customers = db.Customers.ToList();
-            return View(customers);
+            int TotalCustomers = db.Customers.Count();
+            model.PageInfo.MaxPage = model.PageInfo.GetMaxPage(TotalCustomers);
+            if (model.PageInfo.MaxPage < page || page < 0) return HttpNotFound();
+            model.PageInfo.CurentPage = page;
+            model.CustomerList = db.Customers.Select(
+                c => new CustomerViewModel
+                {
+                    Id = c.Id,
+                    FullName = c.FirstName + c.LastName,
+                    Country = c.Country,
+                    Phone = c.Phone
+                })
+                .OrderBy(c => c.FullName)
+                .Skip(model.PageInfo.ItemsPerPage * page--)
+                .Take(model.PageInfo.ItemsPerPage)
+                .ToList();
+            return View(model);
         }
         // GET: Details
         public ActionResult Details(int id)

@@ -1,4 +1,4 @@
-﻿@model ICollection<CrmManagerMvc.Models.Supplier>
+﻿@model CrmManagerMvc.ViewModels.SupplierIndexViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,30 +6,27 @@
 
 <h2>@ViewBag.Title</h2>
 
+@Html.Partial("_Pagging", Model.PageInfo)
 <table>
     <tr class="table-bordered">
         <td class="table-bordered">Company name</td>
         <td class="table-bordered">Contact name</td>
-        <td class="table-bordered">Contact title</td>
-        <td class="table-bordered">City</td>
         <td class="table-bordered">Country</td>
         <td class="table-bordered">Phone</td>
-        <td class="table-bordered">Fax</td>
     </tr>
-    @foreach (var supplier in Model)
+    @foreach (var supplier in Model.SupplierList)
     {
         <tr class="table-bordered">
             <td class="table-bordered">@supplier.CompanyName</td>
             <td class="table-bordered">@supplier.ContactName</td>
-            <td class="table-bordered">@supplier.ContactTitle</td>
-            <td class="table-bordered">@supplier.City</td>
             <td class="table-bordered">@supplier.Country</td>
             <td class="table-bordered">@supplier.Phone</td>
-            <td class="table-bordered">@supplier.Fax</td>
         </tr>
     }
 </table>
-@{ 
+@Html.Partial("_Pagging", Model.PageInfo)
+
+@{
     Html.Partial("_DummyPartial");
 }
 
