@@ -1,0 +1,26 @@
+﻿@model ICollection<CrmManagerMvc.ViewModels.RankingViewModel>
+@if(Model.Count() > 1)
+{
+    int i = 1;
+    <div>
+        <h4>Ranking: </h4>
+        <table>
+            <tr class="table-bordered">
+                <td class="table-bordered">Nr.</td>
+                <td class="table-bordered">Nume</td>
+                <td class="table-bordered">Numar accesari</td>
+                <td class="table-bordered">Mai multe detalii</td>
+            </tr>
+            @foreach (var ranking in Model)
+            {
+                <tr class="table-bordered">
+                    <td class="table-bordered">@i</td>
+                    <td class="table-bordered">@ranking.Nume</td>
+                    <td class="table-bordered">@ranking.NumarAccesari</td>
+                    <td class="table-bordered">@Html.ActionLink("Detalii", "Details", ranking.ControllerName, new { id = ranking.Id }, null)</td>
+                </tr>
+                i++;
+            }
+        </table>
+    </div>
+}

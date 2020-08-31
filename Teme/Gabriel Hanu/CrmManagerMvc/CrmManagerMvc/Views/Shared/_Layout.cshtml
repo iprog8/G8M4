@@ -1,4 +1,10 @@
 ﻿<!DOCTYPE html>
+@{ 
+    string UrlController = (string)ViewContext.RouteData.Values["controller"];
+    string UrlAction = (string)ViewContext.RouteData.Values["action"];
+    string UrlId = (string)ViewContext.RouteData.Values["id"];
+    string UrlTheme = (string)ViewContext.RouteData.Values["theme"];
+}
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,7 +14,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body class="@ViewContext.RouteData.Values.FirstOrDefault(v => v.Key == "theme").Value">
+<body class=@UrlTheme>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -41,8 +47,9 @@
             </div>
             <div class="col-md-3">
                 @{
-                    Html.RenderAction("_NumarAccesari", "Accesari", new { numePagina = (string)ViewContext.RouteData.Values["controller"] + ViewContext.RouteData.Values["action"] });
-                }
+                    Html.RenderAction("_NumarAccesari", "Accesari", new { numePagina = UrlController + UrlAction, id = UrlId});
+                    Html.RenderAction("_RankingPartial", "Ranking", new { controllerName = UrlController});
+                    }
             </div>
         </div>
         <footer>

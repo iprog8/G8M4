@@ -12,8 +12,9 @@ namespace CrmManagerMvc.Controllers
     public class AccesariController : Controller
     {
         // GET: Accesari
-        public ActionResult _NumarAccesari(string numePagina)
+        public ActionResult _NumarAccesari(string numePagina, string id)
         {
+            numePagina += id;
             NumarAccesari model = new NumarAccesari();
             model.Accesari = UpdatePageAcces(numePagina);
             return PartialView(model);
@@ -22,7 +23,14 @@ namespace CrmManagerMvc.Controllers
         {
             CRMEntities db = new CRMEntities();
             var page = db.Pages.FirstOrDefault(p => p.NumePagina == pageName);
-            if (page == null) return "0";
+            if (page == null)
+            {
+                Models.Page tempPage = new Models.Page();
+                tempPage.NumePagina = pageName;
+                tempPage.NumarAccesari = 0;
+                db.Pages.Add(tempPage);
+                page = tempPage;
+            }
             page.NumarAccesari++;
             db.SaveChanges();
             return page.NumarAccesari.ToString();
