@@ -1,0 +1,16 @@
+﻿@model CrmManagerMvc.ViewModels.PageInfoViewModel
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.MaxPage; i++)
+        {
+            if (i == Model.CurentPage)
+            {
+            <li class="pagination disabled"><a>@i</a></li>
+            }
+            else
+            {
+                <li class="pagination">
+                    @Html.ActionLink(i.ToString(), Model.ViewName, new { page = i })
+                </li>
+            }
+        }
+    </ul>

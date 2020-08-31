@@ -17,7 +17,7 @@
                     <td class="table-bordered">@i</td>
                     <td class="table-bordered">@ranking.Nume</td>
                     <td class="table-bordered">@ranking.NumarAccesari</td>
-                    <td class="table-bordered">@Html.ActionLink("Detalii", "Details", ranking.ControllerName, new { id = ranking.Id }, null)</td>
+                    <td class="table-bordered">@Html.ActionLink("Detalii", ranking.ViewName, ranking.ControllerName, new { id = ranking.Id }, null)</td>
                 </tr>
                 i++;
             }

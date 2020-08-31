@@ -1,26 +1,23 @@
-﻿@model ICollection<CrmManagerMvc.Models.Customer>
+﻿@model CrmManagerMvc.ViewModels.CustomerIndexViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
-
+@Html.Partial("_Pagging", Model.PageInfo)
 <table>
     <tr class="table-bordered">
-        <td class="table-bordered">FirstName</td>
-        <td class="table-bordered">SecondName</td>
+        <td class="table-bordered">Full name</td>
         <td class="table-bordered">Country</td>
-        <td class="table-bordered">City</td>
         <td class="table-bordered">Phone Number</td>
+        <td class="table-bordered">Details</td>
     </tr>
-    @foreach (var customer in Model)
+    @foreach (var customer in Model.CustomerList)
     {
         <tr class="table-bordered">
-            <td class="table-bordered">@customer.FirstName</td>
-            <td class="table-bordered">@customer.LastName</td>
+            <td class="table-bordered">@customer.FullName</td>
             <td class="table-bordered">@customer.Country</td>
-            <td class="table-bordered">@customer.City</td>
             <td class="table-bordered">@customer.Phone</td>
             <td class="table-bordered">
                 @Html.ActionLink("Details", "Details", "Customer", new { id = customer.Id }, null)
@@ -28,6 +25,7 @@
         </tr>
     }
 </table>
+@Html.Partial("_Pagging", Model.PageInfo)
 @{
     Html.RenderAction("_NumarTotalClienti");
 }
