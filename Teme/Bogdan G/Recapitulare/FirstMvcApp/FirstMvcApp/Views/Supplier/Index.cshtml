@@ -1,0 +1,57 @@
+﻿@model  IPagedList<FirstMvcApp.Models.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+    <h2>@Html.ActionLink("Lista Furnizori", "Index")</h2>
+
+<p>
+    @Html.ActionLink("Creare Furnizor", "Create")
+    
+
+    @using (Html.BeginForm("Index", "Supplier", FormMethod.Get))
+    {
+        <input type="text" name="search" placeholder="Numele companiei..." />
+        <input type="submit" name="submit" value="Cautare" />
+    }
+</p>
+
+<table class="table table-hover" style="color:darkgreen">
+    <tr class="table-bordered table-condensed" style="color:darkred">
+        <td class="table-bordered table-condensed table-hover">Companie</td>
+        <td class="table-bordered table-condensed table-hover">Contact</td>
+        <td class="table-bordered table-condensed table-hover">Telefon</td>
+        <td class="table-bordered table-condensed table-hover">Actiuni</td>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <h3 style="color:darkred">Nu s-au gasit companii cu acel nume !</h3>
+        @Html.ActionLink("Inapoi", "Index")
+    }
+    else
+    {
+        foreach (var supplier in Model)
+        {
+            <tr class="table-bordered table-condensed table-hover">
+                <td class="table-bordered table-condensed table-hover">@supplier.CompanyName</td>
+                <td class="table-bordered table-condensed table-hover">@supplier.ContactName</td>
+                <td class="table-bordered table-condensed table-hover">@supplier.Phone</td>
+                <td class="table-bordered table-condensed table-hover">
+                    @Html.ActionLink("Editare", "Edit", new { id = supplier.Id }) |
+                    @Html.ActionLink("Detalii", "Details", new { id = supplier.Id }) |
+                    @Html.ActionLink("Stergere", "Delete", new { id = supplier.Id })
+                </td>
+            </tr>
+        }
+
+    }
+
+
+</table>
+
+@Html.PagedListPager(Model, i => Url.Action("Index", "Supplier", new { i, search=Request.QueryString["search"]}))

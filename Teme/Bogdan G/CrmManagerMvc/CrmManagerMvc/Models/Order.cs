@@ -26,7 +26,7 @@ namespace CrmManagerMvc.Models
         public int CustomerId { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Supplier Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItem { get; set; }
     }

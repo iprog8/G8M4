@@ -7,15 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CrmManagerMvc.Models
+namespace FirstMvcApp.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Supplier
+    public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Supplier()
+        public Customer()
         {
             this.Order = new HashSet<Order>();
         }
