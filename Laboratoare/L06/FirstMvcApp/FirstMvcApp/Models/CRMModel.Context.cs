@@ -31,5 +31,6 @@ namespace FirstMvcApp.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Translation> Translations { get; set; }
     }
 }

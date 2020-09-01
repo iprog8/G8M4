@@ -5,15 +5,8 @@ using System.Web;
 
 namespace FirstMvcApp.ViewModels
 {
-    public class CustomerIndexViewModel
+    public class CustomerIndexViewModel: IndexViewModel
     {
-        public CustomerIndexViewModel()
-        {
-            CustomerList = new List<CustomerViewModel>();
-            PageInfo = new PageInfoViewModel();
-        }
         public ICollection<CustomerViewModel> CustomerList { get; set; }
-        public PageInfoViewModel PageInfo { get; set; }
-
     }
 }
