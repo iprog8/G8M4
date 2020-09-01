@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CrmManagerMvc.Models
+namespace FirstMvcApp.Models
 {
     using System;
     using System.Data.Entity;
@@ -25,7 +25,7 @@ namespace CrmManagerMvc.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Supplier> Customer { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItem> OrderItem { get; set; }
         public virtual DbSet<Product> Product { get; set; }

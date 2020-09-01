@@ -7,27 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CrmManagerMvc.Models
+namespace FirstMvcApp.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Supplier
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Supplier()
+        public Product()
         {
-            this.Order = new HashSet<Order>();
+            this.OrderItem = new HashSet<OrderItem>();
         }
     
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Phone { get; set; }
+        public string ProductName { get; set; }
+        public int SupplierId { get; set; }
+        public Nullable<decimal> UnitPrice { get; set; }
+        public string Package { get; set; }
+        public bool IsDiscontinued { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<OrderItem> OrderItem { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }
