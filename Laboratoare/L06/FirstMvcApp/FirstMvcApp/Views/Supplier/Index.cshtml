@@ -1,7 +1,7 @@
 ﻿@model FirstMvcApp.ViewModels.SupplierIndexViewModel
 
 @{
-    ViewBag.Title = "Furnizori";
+    ViewBag.Title = @Model.Translations.GetTranslation("Supplier_Index_Title");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,10 +11,10 @@
 @Html.Partial("_Pagging", Model.PageInfo)
 <table>
     <tr class="table-bordered table-condensed" style="color:red">
-        <td class="table-bordered table-condensed"> Companie</td>
-        <td class="table-bordered table-condensed"> Contact</td>
-        <td class="table-bordered table-condensed"> Telefon</td>
-        <td class="table-bordered table-condensed"> Actiuni</td>
+        <td class="table-bordered table-condensed"> @Model.Translations.GetTranslation("Supplier_Index_Company")</td>
+        <td class="table-bordered table-condensed"> @Model.Translations.GetTranslation("Supplier_Index_Contact")</td>
+        <td class="table-bordered table-condensed"> @Model.Translations.GetTranslation("Supplier_Index_Phone")</td>
+        <td class="table-bordered table-condensed"> @Model.Translations.GetTranslation("Supplier_Index_Actions")</td>
 
     </tr>
     @foreach (var supplier in Model.SupplierList)

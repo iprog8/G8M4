@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FirstMvcApp.ActionFilters;
 using FirstMvcApp.Models;
 using FirstMvcApp.ViewModels;
 
@@ -19,8 +20,11 @@ namespace FirstMvcApp.Controllers
         //}
 
         // GET: Supplier
+        // /Supplier/Index
+        [LogActionFiter]
         public ActionResult Index(int page = 1)
-        {
+        { 
+            string lang = this.RouteData.Values["lang"].ToString() != "" ? this.RouteData.Values["lang"].ToString() : "en";
             SupplierIndexViewModel model = new SupplierIndexViewModel();
             CRMEntities db = new CRMEntities();
             model.PageInfo.CurrentPage = page;
@@ -38,7 +42,7 @@ namespace FirstMvcApp.Controllers
                 .Take(ItemsPerPage)
                 .ToList();
             model.PageInfo.MaxPage = Math.Ceiling(db.Suppliers.Count() / (double)ItemsPerPage);
-
+            model.Translations.Translations = db.Translations.Where(t => t.Code.Contains("Supplier_Index_") && t.Lang == lang).ToList();
             return View(model);
         }
 

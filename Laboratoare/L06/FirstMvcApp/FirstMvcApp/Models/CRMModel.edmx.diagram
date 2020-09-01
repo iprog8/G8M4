@@ -15,6 +15,7 @@
         <AssociationConnector Association="CRMModel.FK_ORDERITE_REFERENCE_PRODUCT" ManuallyRouted="false" />
         <AssociationConnector Association="CRMModel.FK_PRODUCT_REFERENCE_SUPPLIER" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CRMModel.Currency" Width="1.5" PointX="6.125" PointY="4.5" />
+        <EntityTypeShape EntityType="CRMModel.Translation" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
