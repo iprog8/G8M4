@@ -9,19 +9,39 @@ using System.Web.Mvc;
 using FirstMvcApp.Models;
 using PagedList.Mvc;
 using PagedList;
+using FirstMvcApp.ViewModels;
+using FirstMvcApp.ActionFilters;
 
 namespace FirstMvcApp.Controllers
 {
     public class SupplierController : Controller
     {
         private CRMEntities db = new CRMEntities();
+        public int ItemsPerPage { get; set; }
         // GET: Supplier
-        public ActionResult Index(string search, int? i)
+        [LogActionFiter]
+        public ActionResult Index(int page = 1)
         {
+            string lang = this.RouteData.Values["lang"].ToString() != "" ? this.RouteData.Values["lang"].ToString() : "en";
+            SupplierIndexViewModel model = new SupplierIndexViewModel();
             CRMEntities db = new CRMEntities();
-            ICollection<Supplier> suppliers = db.Supplier.ToList();
-
-            return View(db.Supplier.Where(x => x.CompanyName.StartsWith(search) || search == null).ToList().ToPagedList(i ?? 1,10));
+            model.PageInfo.CurrentPage = page;
+            model.SupplierList = (ICollection<SupplierIndexViewModel>)db.Supplier.Select(
+                    s => new SupplierViewModel
+                    {
+                        Id = s.Id,
+                        CompanyName = s.CompanyName,
+                        ContactName = s.ContactName,
+                        Phone = s.Phone
+                    }
+                )
+                .OrderBy(s => s.CompanyName)
+                .Skip(ItemsPerPage * (page - 1))
+                .Take(ItemsPerPage)
+                .ToList();
+            model.PageInfo.MaxPage = Math.Ceiling(db.Supplier.Count() / (double)ItemsPerPage);
+            model.Translations.Translations = (ICollection<Translation>)db.Translations.Where(t => t.Code.Contains("Supplier_Index_") && t.Lang == lang).ToList();
+            return View(model);
         }
 
         [HttpGet]
