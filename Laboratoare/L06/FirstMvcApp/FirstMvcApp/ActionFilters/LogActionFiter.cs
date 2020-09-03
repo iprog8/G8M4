@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Diagnostics;
+using FirstMvcApp.Features;
 
 namespace FirstMvcApp.ActionFilters
 {
@@ -12,13 +13,22 @@ namespace FirstMvcApp.ActionFilters
         DateTime timeStart;
         string controller = string.Empty;
         string action = string.Empty;
+        Logging log = new Logging();
+        string actionType = string.Empty;
+        string parameters = string.Empty;
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            controller = filterContext.RouteData.Values["controller"].ToString();
-            action = filterContext.RouteData.Values["action"].ToString();
+            controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            action = filterContext.ActionDescriptor.ActionName;
+            actionType = filterContext.HttpContext.Request.HttpMethod; 
+            parameters = string.Empty;
+            foreach (var item in filterContext.ActionParameters)
+            {
+                parameters += "&" + item.Key + "=" + item.Value;
+            }
             timeStart = DateTime.Now;
-            Debug.WriteLine($"Action {controller}/{action} starts at {timeStart.ToLongTimeString()}");
+            log.Info($"Action {actionType} - {controller}/{action}/{parameters} starts");
             base.OnActionExecuting(filterContext);
         }
 
@@ -26,7 +36,7 @@ namespace FirstMvcApp.ActionFilters
         {
             base.OnActionExecuted(filterContext);
             TimeSpan timeSpan = DateTime.Now - timeStart;
-            Debug.WriteLine($"Action {controller}/{action} duration = {timeSpan.TotalMilliseconds}");
+            log.Info($"Action {controller}/{action} end after {timeSpan.TotalMilliseconds} ms");
         }
     }
 }

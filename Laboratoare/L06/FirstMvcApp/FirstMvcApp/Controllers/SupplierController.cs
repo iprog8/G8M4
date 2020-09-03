@@ -14,16 +14,8 @@ namespace FirstMvcApp.Controllers
     {
         public int ItemsPerPage { get; set; } = 10;
 
-        //public SupplierController()
-        //{
-        //    ItemsPerPage = 10;
-        //}
-
-        // GET: Supplier
-        // /Supplier/Index
-        [LogActionFiter]
         public ActionResult Index(int page = 1)
-        { 
+        {
             string lang = this.RouteData.Values["lang"].ToString() != "" ? this.RouteData.Values["lang"].ToString() : "en";
             SupplierIndexViewModel model = new SupplierIndexViewModel();
             CRMEntities db = new CRMEntities();
@@ -57,7 +49,7 @@ namespace FirstMvcApp.Controllers
         }
 
         [HttpPost]
-        public void Edit(Supplier supplier)
+        public ActionResult Edit(Supplier supplier)
         {
             if (ModelState.IsValid)
             {
@@ -65,13 +57,10 @@ namespace FirstMvcApp.Controllers
                 if(db.Suppliers.Any(s => s.Id == supplier.Id)) {
                     db.Entry<Supplier>(supplier).State = EntityState.Modified;
                     db.SaveChanges();
-                    RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
             }
-            else
-            {
-                //return ModelState.
-            }
+            return View(supplier);
         }
     }
 }
