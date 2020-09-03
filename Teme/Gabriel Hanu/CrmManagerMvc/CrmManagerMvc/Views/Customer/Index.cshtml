@@ -4,14 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@Model.Translations.GetTextFor("Title")</h2>
 @Html.Partial("_Pagging", Model.PageInfo)
 <table>
     <tr class="table-bordered">
-        <td class="table-bordered">Full name</td>
-        <td class="table-bordered">Country</td>
-        <td class="table-bordered">Phone Number</td>
-        <td class="table-bordered">Details</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("FullName")</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("Country")</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("Phone")</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("Details")</td>
     </tr>
     @foreach (var customer in Model.CustomerList)
     {
@@ -20,7 +20,7 @@
             <td class="table-bordered">@customer.Country</td>
             <td class="table-bordered">@customer.Phone</td>
             <td class="table-bordered">
-                @Html.ActionLink("Details", "Details", "Customer", new { id = customer.Id }, null)
+                @Html.ActionLink(@Model.Translations.GetTextFor("Details"), "Details", "Customer", new { id = customer.Id }, null)
             </td>
         </tr>
     }

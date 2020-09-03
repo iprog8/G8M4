@@ -1,4 +1,4 @@
 ﻿@model CrmManagerMvc.Models.NumarAccesari
 <div>
-    <h4>Ai accesat aceasta pagina de @Model.Accesari ori!</h4>
+    <h4>@Model.Translations.GetTextFor("TotalVisits") @Model.Accesari @Model.Translations.GetTextFor("Times")</h4>
 </div>

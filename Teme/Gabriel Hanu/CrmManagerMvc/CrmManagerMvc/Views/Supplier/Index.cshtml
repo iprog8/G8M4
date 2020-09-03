@@ -4,15 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@Model.Translations.GetTextFor("Title")</h2>
 
 @Html.Partial("_Pagging", Model.PageInfo)
 <table>
     <tr class="table-bordered">
-        <td class="table-bordered">Company name</td>
-        <td class="table-bordered">Contact name</td>
-        <td class="table-bordered">Country</td>
-        <td class="table-bordered">Phone</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("Company")</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("Contact")</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("Country")</td>
+        <td class="table-bordered">@Model.Translations.GetTextFor("Phone")</td>
     </tr>
     @foreach (var supplier in Model.SupplierList)
     {

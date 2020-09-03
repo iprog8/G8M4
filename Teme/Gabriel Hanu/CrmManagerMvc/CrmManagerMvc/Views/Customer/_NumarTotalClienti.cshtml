@@ -1,4 +1,4 @@
 ﻿@model CrmManagerMvc.Models.CustomersDetails
 <div>
-    <h4>Numarul total de clienti este: @Model.TotalCustomers</h4>
+    <h4>@Model.Translations.GetTextFor("TotalCustomers") @Model.TotalCustomers</h4>
 </div>
