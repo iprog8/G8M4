@@ -68,6 +68,15 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="30" />
           <Property Name="Fax" Type="nvarchar" MaxLength="30" />
         </EntityType>
+        <EntityType Name="Translations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Lang" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="1500" Nullable="false" />
+        </EntityType>
         <Association Name="FK_ORDER_REFERENCE_CUSTOMER">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -123,6 +132,7 @@
           <EntitySet Name="Page" EntityType="Self.Page" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ORDER_REFERENCE_CUSTOMER" Association="Self.FK_ORDER_REFERENCE_CUSTOMER">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Order" EntitySet="Order" />
@@ -278,6 +288,7 @@
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <EntitySet Name="Pages" EntityType="CRMModel.Page" />
+          <EntitySet Name="Translations" EntityType="CRMModel.Translation" />
         </EntityContainer>
         <EntityType Name="Page">
           <Key>
@@ -286,6 +297,15 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NumePagina" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NumarAccesari" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Translation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Lang" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="1500" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -358,6 +378,16 @@
               <MappingFragment StoreEntitySet="Page">
                 <ScalarProperty Name="NumarAccesari" ColumnName="NumarAccesari" />
                 <ScalarProperty Name="NumePagina" ColumnName="NumePagina" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Translations">
+            <EntityTypeMapping TypeName="CRMModel.Translation">
+              <MappingFragment StoreEntitySet="Translations">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
