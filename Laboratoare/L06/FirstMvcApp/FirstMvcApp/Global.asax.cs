@@ -1,3 +1,5 @@
+using FirstMvcApp.ActionFilters;
+using FirstMvcApp.Features;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,13 @@ namespace FirstMvcApp
     {
         protected void Application_Start()
         {
+            Logging log = new Logging();
+            log.Start();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalFilters.Filters.Add(new LogActionFiter());
         }
     }
 }

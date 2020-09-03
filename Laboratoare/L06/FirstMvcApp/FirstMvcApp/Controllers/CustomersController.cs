@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using FirstMvcApp.ActionFilters;
 using FirstMvcApp.Models;
 using FirstMvcApp.ViewModels;
 
@@ -57,6 +58,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: Customers/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -66,6 +68,7 @@ namespace FirstMvcApp.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,City,Country,Phone")] Customer customer)
         {
@@ -80,6 +83,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: Customers/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -98,6 +102,7 @@ namespace FirstMvcApp.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,City,Country,Phone")] Customer customer)
         {
@@ -111,6 +116,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: Customers/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -126,6 +132,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // POST: Customers/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
