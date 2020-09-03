@@ -16,12 +16,13 @@ namespace CrmManagerMvc.Controllers
         {
             numePagina += id;
             NumarAccesari model = new NumarAccesari();
-            model.Accesari = UpdatePageAcces(numePagina);
+            model.Accesari = UpdatePageAcces(model, numePagina);
             return PartialView(model);
         }
-        private string UpdatePageAcces(string pageName)
+        private string UpdatePageAcces(NumarAccesari numarAccesari, string pageName)
         {
             CRMEntities db = new CRMEntities();
+            numarAccesari.Translations.GetTranslations(db, this.RouteData);
             var page = db.Pages.FirstOrDefault(p => p.NumePagina == pageName);
             if (page == null)
             {

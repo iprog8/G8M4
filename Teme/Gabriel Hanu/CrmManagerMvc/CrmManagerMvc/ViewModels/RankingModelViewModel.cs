@@ -5,10 +5,9 @@ using System.Web;
 
 namespace CrmManagerMvc.ViewModels
 {
-    public class CustomerIndexViewModel
+    public class RankingModelViewModel
     {
-        public ICollection<CustomerViewModel> CustomerList { get; set; }
-        public PageInfoViewModel PageInfo { get; set; } = new PageInfoViewModel();
+        public ICollection<RankingViewModel> RankingViewModels { get; set; } = new List<RankingViewModel>();
         public TranslationViewModel Translations { get; set; } = new TranslationViewModel();
     }
 }

@@ -1,19 +1,20 @@
 ﻿@{ 
-    var id = ViewContext.RouteData.Values["controller"];
+    string UrlAction = ViewContext.RouteData.Values["action"].ToString();
 }
 <ul class="nav navbar-nav navbar-right">
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item" href="#">@Html.ActionLink("Romana", ViewContext.RouteData.Values["action"].ToString(), new { language = "ro"})</li>
-            <li class="dropdown-item" href="#">@Html.ActionLink("English", ViewContext.RouteData.Values["action"].ToString(), new { language = "en"})</li>
+            <li class="dropdown-item" href="#">@Html.ActionLink("Romana", UrlAction, new { language = "ro" }, true)</li>
+            <li class="dropdown-item" href="#">@Html.ActionLink("English", UrlAction, new { language = "en" }, true)</li>
+            <li class="dropdown-item" href="#">@Html.ActionLink("Francais", UrlAction, new { language = "fr" }, true)</li>
         </ul>
     </li>
     <li>
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Theme</a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item" href="#">@Html.ActionLink("White", ViewContext.RouteData.Values["action"].ToString(), new { theme = "theme-white" })</li>
-            <li class="dropdown-item" href="#">@Html.ActionLink("Dark", ViewContext.RouteData.Values["action"].ToString(), new { theme = "theme-dark" })</li>
+            <li class="dropdown-item" href="#">@Html.ActionLink("White", UrlAction, new { theme = "theme-white" }, true)</li>
+            <li class="dropdown-item" href="#">@Html.ActionLink("Dark", UrlAction, new { theme = "theme-dark" }, true)</li>
         </ul>
     </li>
 </ul>
