@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace CrmManagerMvc.Controllers
 {
@@ -15,7 +16,7 @@ namespace CrmManagerMvc.Controllers
         [HttpGet]
         public ActionResult Index(int page = 1)
         {
-            SetTitle();
+            string lang = this.RouteData.Values["language"].ToString() != "" ? this.RouteData.Values["language"].ToString() : "en";
             SupplierIndexViewModel model = new SupplierIndexViewModel();
             CRMEntities db = new CRMEntities();
             int TotalSuppliers = db.Suppliers.Count();
@@ -34,22 +35,8 @@ namespace CrmManagerMvc.Controllers
                 .Skip(model.PageInfo.ItemsPerPage * page--)
                 .Take(model.PageInfo.ItemsPerPage)
                 .ToList();
+            model.Translations.GetTranslations(db, this.RouteData);
             return View(model);
-        }
-        private void SetTitle()
-        {
-            string lang = this.RouteData.Values.FirstOrDefault(v => v.Key == "language").Value.ToString();
-            switch (lang)
-            {
-                case "ro":
-                    ViewBag.Title = "Lista furnizori";
-                    break;
-                case "en":
-                    ViewBag.Title = "List of suppliers";
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }

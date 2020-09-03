@@ -13,10 +13,11 @@ namespace CrmManagerMvc.Controllers
         // GET: Ranking
         public ActionResult _RankingPartial(string controllerName)
         {
-            ICollection<RankingViewModel> rankingViewModels = new List<RankingViewModel>();
+            RankingModelViewModel model = new RankingModelViewModel();
             if(Enum.TryParse(controllerName, out RankingPages ranking))
             {
                 CRMEntities db = new CRMEntities();
+                model.Translations.GetTranslations(db, this.RouteData);
                 var pages = db.Pages.Where(p => p.NumePagina.Contains(controllerName + "Details")).ToList();
                 foreach (var page in pages)
                 {
@@ -25,11 +26,11 @@ namespace CrmManagerMvc.Controllers
                     rankingViewModel.Nume = GetName(db, ranking, rankingViewModel.Id);
                     rankingViewModel.NumarAccesari = page.NumarAccesari;
                     rankingViewModel.ControllerName = controllerName;
-                    rankingViewModels.Add(rankingViewModel);
+                    model.RankingViewModels.Add(rankingViewModel);
                 }
-                return PartialView(rankingViewModels.OrderByDescending(r => r.NumarAccesari).ToList());
+                model.RankingViewModels = model.RankingViewModels.OrderByDescending(r => r.NumarAccesari).ToList();
             }
-            return PartialView(rankingViewModels);
+            return PartialView(model);
         }
         private static string GetName(CRMEntities db, RankingPages rankingPages, int id)
         {

@@ -14,19 +14,7 @@ namespace CrmManagerMvc.Controllers
         // GET: Customer
         public ActionResult Index(int page = 1)
         {
-            string lang = this.RouteData.Values["language"].ToString();
-            switch (lang)
-            {
-                case "en":
-                    ViewBag.Title = "List of customers";
-                    break;
-                case "ro":
-                    ViewBag.Title = "Lista de clienti";
-                    break;
-                default:
-                    break;
-            }
-
+            string lang = this.RouteData.Values["language"].ToString() != "" ? this.RouteData.Values["language"].ToString() : "en";
             CustomerIndexViewModel model = new CustomerIndexViewModel();
             CRMEntities db = new CRMEntities();
             int TotalCustomers = db.Customers.Count();
@@ -45,6 +33,7 @@ namespace CrmManagerMvc.Controllers
                 .Skip(model.PageInfo.ItemsPerPage * page--)
                 .Take(model.PageInfo.ItemsPerPage)
                 .ToList();
+            model.Translations.GetTranslations(db, this.RouteData);
             return View(model);
         }
         // GET: Details
@@ -60,7 +49,9 @@ namespace CrmManagerMvc.Controllers
         public ActionResult _NumarTotalClienti()
         {
             var model = new CustomersDetails();
-            model.TotalCustomers = new CRMEntities().Customers.Count();
+            CRMEntities db = new CRMEntities();
+            model.TotalCustomers = db.Customers.Count();
+            model.Translations.GetTranslations(db, this.RouteData);
             return PartialView(model);
         }
     }

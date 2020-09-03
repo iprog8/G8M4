@@ -1,23 +1,23 @@
-﻿@model ICollection<CrmManagerMvc.ViewModels.RankingViewModel>
-@if(Model.Count() > 1)
+﻿@model CrmManagerMvc.ViewModels.RankingModelViewModel
+@if(Model.RankingViewModels.Count() > 1)
 {
     int i = 1;
     <div>
-        <h4>Ranking: </h4>
+        <h4>@Model.Translations.GetTextFor("Rank")</h4>
         <table>
             <tr class="table-bordered">
-                <td class="table-bordered">Nr.</td>
-                <td class="table-bordered">Nume</td>
-                <td class="table-bordered">Numar accesari</td>
-                <td class="table-bordered">Mai multe detalii</td>
+                <td class="table-bordered">@Model.Translations.GetTextFor("Number")</td>
+                <td class="table-bordered">@Model.Translations.GetTextFor("Name")</td>
+                <td class="table-bordered">@Model.Translations.GetTextFor("TotalVisits")</td>
+                <td class="table-bordered">@Model.Translations.GetTextFor("MoreDetails")</td>
             </tr>
-            @foreach (var ranking in Model)
+            @foreach (var ranking in Model.RankingViewModels)
             {
                 <tr class="table-bordered">
                     <td class="table-bordered">@i</td>
                     <td class="table-bordered">@ranking.Nume</td>
                     <td class="table-bordered">@ranking.NumarAccesari</td>
-                    <td class="table-bordered">@Html.ActionLink("Detalii", ranking.ViewName, ranking.ControllerName, new { id = ranking.Id }, null)</td>
+                    <td class="table-bordered">@Html.ActionLink(@Model.Translations.GetTextFor("Details"), ranking.ViewName, ranking.ControllerName, new { id = ranking.Id }, null)</td>
                 </tr>
                 i++;
             }
