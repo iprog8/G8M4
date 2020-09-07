@@ -5,6 +5,9 @@
 }
 
 <h2>@Model.Translations.GetTextFor("Title")</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 @Html.Partial("_Pagging", Model.PageInfo)
 <table>
     <tr class="table-bordered">
@@ -22,6 +25,8 @@
             <td class="table-bordered">
                 @Html.ActionLink(@Model.Translations.GetTextFor("Details"), "Details", "Customer", new { id = customer.Id }, null)
             </td>
+            <td>@Html.ActionLink("Delete", "Delete", new { id = customer.Id })</td>
+            <td>@Html.ActionLink("Edit", "Edit", new { id = customer.Id })</td>
         </tr>
     }
 </table>
