@@ -21,6 +21,7 @@ namespace FirstMvcApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalFilters.Filters.Add(new LogActionFiter());
+            GlobalFilters.Filters.Add(new LogExceptionFilter());
         }
     }
 }

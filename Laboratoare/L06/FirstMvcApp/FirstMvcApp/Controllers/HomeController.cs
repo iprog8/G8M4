@@ -59,5 +59,10 @@ namespace FirstMvcApp.Controllers
 
             return View();
         }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }
