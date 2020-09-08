@@ -180,9 +180,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Enums\RouteTypes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -233,6 +235,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomerIndexViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\LanguageViewModel.cs" />
     <Compile Include="ViewModels\PageInfoViewModel.cs" />
     <Compile Include="ViewModels\RankingModelViewModel.cs" />
     <Compile Include="ViewModels\RankingViewModel.cs" />
@@ -330,6 +333,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Language\" />
     <Folder Include="Views\Ranking\" />
   </ItemGroup>
   <ItemGroup>
