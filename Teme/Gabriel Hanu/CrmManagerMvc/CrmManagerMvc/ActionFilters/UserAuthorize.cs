@@ -10,8 +10,6 @@ namespace CrmManagerMvc.ActionFilters
 {
     public class UserAuthorize: AuthorizeAttribute
     {
-        private string Theme { get; set; }
-        private string Lang { get; set; }
         private string Controller { get; set; }
         private string Action { get; set; }
         private string Id { get; set; }
@@ -38,12 +36,10 @@ namespace CrmManagerMvc.ActionFilters
         private void GetUrlValues(AuthorizationContext authorizationContext)
         {
             var routeData = authorizationContext.RequestContext.RouteData;
-            Theme = (string)routeData.Values["theme"];
-            Lang = (string)routeData.Values["language"];
             Controller = (string)routeData.Values["controller"];
             Action = (string)routeData.Values["action"];
             Id = (string)routeData.Values["id"];
-            UrlForReturn = $"/{Theme}/{Lang}/{Controller}/{Action}";
+            UrlForReturn = $"/{routeData.Values["theme"]}/{routeData.Values["language"]}/{Controller}/{Action}";
             if (Id != null) UrlForReturn += $"/{Id}";
         }
     }
