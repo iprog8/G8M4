@@ -193,7 +193,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CrmModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Currency.cs">
+      <DependentUpon>CrmModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Customer.cs">
+      <DependentUpon>CrmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GlumaZilei.cs">
       <DependentUpon>CrmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -290,9 +296,16 @@
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
+    <Content Include="Views\Supplier\_DummyPartial.cshtml" />
+    <Content Include="Views\Supplier\View.cshtml" />
+    <Content Include="Views\Customer\_NumarTotalClienti.cshtml" />
+    <Content Include="Views\Home\_GlumaZilei.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_LayoutHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Dummy\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -4,7 +4,19 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CRM.dbo.Currency' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Valuta" />
+            <PropertyRef Name="Paritate" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Valuta" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Paritate" Type="money" Nullable="false" />
+        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Id" />
@@ -15,6 +27,13 @@
           <Property Name="City" Type="nvarchar" MaxLength="40" />
           <Property Name="Country" Type="nvarchar" MaxLength="40" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="GlumaZilei">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -110,10 +129,18 @@
         </Association>
         <EntityContainer Name="CRMModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GlumaZilei" EntityType="Self.GlumaZilei" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Currency].[Id] AS [Id], 
+    [Currency].[Valuta] AS [Valuta], 
+    [Currency].[Paritate] AS [Paritate]
+    FROM [dbo].[Currency] AS [Currency]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_ORDER_REFERENCE_CUSTOMER" Association="Self.FK_ORDER_REFERENCE_CUSTOMER">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Order" EntitySet="Order" />
@@ -131,8 +158,7 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -269,7 +295,26 @@
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="GlumaZileis" EntityType="CRMModel.GlumaZilei" />
+          <EntitySet Name="Currencies" EntityType="CRMModel.Currency" />
         </EntityContainer>
+        <EntityType Name="GlumaZilei">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Valuta" />
+            <PropertyRef Name="Paritate" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Valuta" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="Paritate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -333,6 +378,23 @@
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Fax" ColumnName="Fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlumaZileis">
+            <EntityTypeMapping TypeName="CRMModel.GlumaZilei">
+              <MappingFragment StoreEntitySet="GlumaZilei">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="CRMModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="Paritate" ColumnName="Paritate" />
+                <ScalarProperty Name="Valuta" ColumnName="Valuta" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

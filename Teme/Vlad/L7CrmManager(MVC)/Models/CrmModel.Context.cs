@@ -30,5 +30,7 @@ namespace L7CrmManager_MVC_.Models
         public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<GlumaZilei> GlumaZileis { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
     }
 }

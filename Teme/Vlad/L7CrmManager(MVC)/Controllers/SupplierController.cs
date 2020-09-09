@@ -11,7 +11,7 @@ namespace L7CrmManager_MVC_.Controllers
     public class SupplierController : Controller
     {
         [HttpGet]
-        public ActionResult Index(int nrPagina)
+        public ActionResult Index(int nrPagina=1)
         {   
             CRMEntities db = new CRMEntities();
             ICollection<Supplier> suppliers = db.Suppliers
@@ -21,5 +21,16 @@ namespace L7CrmManager_MVC_.Controllers
                 .ToList();
             return View(suppliers);
         }
+        public ActionResult _DummyPartial()
+        {
+            var db = new CRMEntities();
+            var model = db.Suppliers
+                .Select(c => c.CompanyName)
+                .OrderByDescending(c => c.Length)
+                .First();
+
+            return PartialView("_DummyPartial", model);
+        }
     }
+
 }

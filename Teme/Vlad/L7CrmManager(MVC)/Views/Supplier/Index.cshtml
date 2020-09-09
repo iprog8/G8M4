@@ -1,9 +1,9 @@
-﻿@model L7CrmManager_MVC_.Models.Supplier
-
+﻿@model ICollection<L7CrmManager_MVC_.Models.Supplier>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Index</h2>
-
+@{
+    Html.RenderAction("_DummyPartial", "Supplier");
+}

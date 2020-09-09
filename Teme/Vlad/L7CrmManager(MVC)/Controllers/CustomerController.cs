@@ -9,8 +9,7 @@ using System.Web.Mvc;
 namespace L7CrmManager_MVC_.Controllers
 {
     public class CustomerController : Controller
-    {   
-        
+    {
         // GET: Customer
         public ActionResult Index()
         {
@@ -62,6 +61,13 @@ namespace L7CrmManager_MVC_.Controllers
             }
             return View(model);
 
+        }
+        public ActionResult _NumarTotalClienti()
+        {
+            CRMEntities db = new CRMEntities();
+            var model = db.Customers.Count();
+
+            return PartialView(model);
         }
 
     }
