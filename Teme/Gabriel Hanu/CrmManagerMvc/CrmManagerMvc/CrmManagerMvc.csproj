@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Enums\RankingPages.cs" />
     <Compile Include="Enums\RouteTypes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,11 +232,11 @@
       <DependentUpon>CrmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RankingPages.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomerIndexViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\LanguageViewModel.cs" />
+    <Compile Include="ViewModels\NavbarItemViewModel.cs" />
     <Compile Include="ViewModels\PageInfoViewModel.cs" />
     <Compile Include="ViewModels\RankingModelViewModel.cs" />
     <Compile Include="ViewModels\RankingViewModel.cs" />

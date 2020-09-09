@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace CrmManagerMvc.Controllers
 {
@@ -14,7 +15,9 @@ namespace CrmManagerMvc.Controllers
         public ActionResult _LanguagePartial()
         {
             LanguageViewModel model = new LanguageViewModel();
-            model.GetValues(HttpContext.Request.RawUrl, this.RouteData);
+            model.CurrentLanguage = (string)this.RouteData.Values["language"];
+            model.CurrentTheme = (string)this.RouteData.Values["theme"];
+            model.GetValues(HttpContext.Request.RawUrl);
             return PartialView(model);
         }
     }
