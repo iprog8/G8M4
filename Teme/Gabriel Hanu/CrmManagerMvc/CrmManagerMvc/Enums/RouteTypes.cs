@@ -7,7 +7,7 @@ namespace CrmManagerMvc.Enums
 {
     public enum RouteTypes
     {
-        Theme = 1,
-        Language = 2
+        Theme,
+        Language
     }
 }

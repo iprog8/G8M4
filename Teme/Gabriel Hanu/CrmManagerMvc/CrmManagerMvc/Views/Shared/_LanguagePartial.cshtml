@@ -4,16 +4,25 @@
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item" href="#"><a href="@Model.GetUrlFor(CrmManagerMvc.Enums.RouteTypes.Language, "ro")">Romana</a></li>
-            <li class="dropdown-item" href="#"><a href="@Model.GetUrlFor(CrmManagerMvc.Enums.RouteTypes.Language, "en")">English</a></li>
-            <li class="dropdown-item" href="#"><a href="@Model.GetUrlFor(CrmManagerMvc.Enums.RouteTypes.Language, "fr")">Francaise</a></li>
+            @foreach (var item in Model.SupportedLanguages)
+            {
+                if(Model.CurrentLanguage != item.Abbreviation)
+                {
+                    <li class="dropdown-item" href="#"><a href="@Model.GetUrlFor(CrmManagerMvc.Enums.RouteTypes.Language, item.Abbreviation)">@item.TextToDisplay</a></li>
+                }
+            }
         </ul>
     </li>
     <li>
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Theme</a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item" href="#"><a href="@Model.GetUrlFor(CrmManagerMvc.Enums.RouteTypes.Theme, "theme-white")">White</a></li>
-            <li class="dropdown-item" href="#"><a href="@Model.GetUrlFor(CrmManagerMvc.Enums.RouteTypes.Theme, "theme-dark")">Dark</a></li>
+            @foreach (var item in Model.SupportedThemes)
+            {
+                if (Model.CurrentTheme != item.Abbreviation)
+                {
+                    <li class="dropdown-item" href="#"><a href="@Model.GetUrlFor(CrmManagerMvc.Enums.RouteTypes.Theme, item.Abbreviation)">@item.TextToDisplay</a></li>
+                }
+            }
         </ul>
     </li>
 </ul>
