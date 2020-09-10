@@ -11,7 +11,8 @@ namespace FirstMvcApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace FirstMvcApp.Models
         }
     
         public int Id { get; set; }
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string City { get; set; }
