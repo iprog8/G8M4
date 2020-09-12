@@ -1,0 +1,66 @@
+﻿@model Blog.Models.Postare
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Postare</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titlu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titlu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AutorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AutorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataCreare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataCreare)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UltimulUpdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UltimulUpdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publicata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publicata)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
