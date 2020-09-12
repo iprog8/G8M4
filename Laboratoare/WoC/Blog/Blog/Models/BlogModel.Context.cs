@@ -28,5 +28,7 @@ namespace Blog.Models
         public virtual DbSet<Comentariu> Comentarius { get; set; }
         public virtual DbSet<Postare> Postares { get; set; }
         public virtual DbSet<Poza> Pozas { get; set; }
+
+        public System.Data.Entity.DbSet<Blog.ViewModels.ArticolViewModel> ArticolViewModels { get; set; }
     }
 }
