@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Blog.ActionFilters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Blog
@@ -8,6 +9,7 @@ namespace Blog
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new LoggingAtribute());
         }
     }
 }

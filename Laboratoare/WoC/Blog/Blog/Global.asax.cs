@@ -1,3 +1,4 @@
+using Blog.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Blog
     {
         protected void Application_Start()
         {
+            Logging log = new Logging();
+            log.Start();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
