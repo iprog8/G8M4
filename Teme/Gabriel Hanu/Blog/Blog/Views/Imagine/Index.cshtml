@@ -1,0 +1,33 @@
+﻿@model ICollection<Blog.Models.Imagine>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+@Html.ActionLink("Adauga imagine", "Create")
+
+<table>
+    <th>
+    <td>
+        Imagine
+    </td>
+    <td>
+        Actiuni
+    </td>
+    </th>
+    @foreach (var imagine in Model)
+    {
+        <tr>
+            <td>
+                <img src="@imagine.Cale" width="150px" />
+            </td>
+            <td>
+                <a href="@imagine.Cale">Vezi Imgine</a> |
+                @Html.ActionLink("Sterge", "Delete", new { cale = imagine.Cale })
+            </td>
+        </tr>
+    }
+</table>
+
