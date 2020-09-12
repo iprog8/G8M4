@@ -8,17 +8,17 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EA6EDE5A-8051-4EBA-B132-9597DEF3C2CC}</ProjectGuid>
+    <ProjectGuid>{BD93EAC5-8B94-4FE9-8A86-DEB6F147C241}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CrmManagerMvc</RootNamespace>
-    <AssemblyName>CrmManagerMvc</AssemblyName>
+    <RootNamespace>Blog</RootNamespace>
+    <AssemblyName>Blog</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44315</IISExpressSSLPort>
+    <IISExpressSSLPort>44337</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -46,12 +46,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
-    </Reference>
-    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -120,6 +114,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -170,111 +176,79 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\ExceptionFilter.cs" />
-    <Compile Include="ActionFilters\UserAuthorize.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccesariController.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\ComentariuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RankingController.cs" />
-    <Compile Include="Controllers\SupplierController.cs" />
-    <Compile Include="Enums\RankingPages.cs" />
-    <Compile Include="Enums\RouteTypes.cs" />
+    <Compile Include="Controllers\PostareController.cs" />
+    <Compile Include="Controllers\PozaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CrmModel.Context.cs">
+    <Compile Include="Models\BlogModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrmModel.Context.tt</DependentUpon>
+      <DependentUpon>BlogModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CrmModel.cs">
+    <Compile Include="Models\BlogModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrmModel.tt</DependentUpon>
+      <DependentUpon>BlogModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CrmModel.Designer.cs">
+    <Compile Include="Models\BlogModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrmModel.edmx</DependentUpon>
+      <DependentUpon>BlogModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs">
-      <DependentUpon>CrmModel.tt</DependentUpon>
+    <Compile Include="Models\Comentariu.cs">
+      <DependentUpon>BlogModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Glume.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NumarAccesari.cs" />
-    <Compile Include="Models\Order.cs">
-      <DependentUpon>CrmModel.tt</DependentUpon>
+    <Compile Include="Models\Postare.cs">
+      <DependentUpon>BlogModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderItem.cs">
-      <DependentUpon>CrmModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Page.cs">
-      <DependentUpon>CrmModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>CrmModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Supplier.cs">
-      <DependentUpon>CrmModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomersDetails.cs" />
-    <Compile Include="Models\Translation.cs">
-      <DependentUpon>CrmModel.tt</DependentUpon>
+    <Compile Include="Models\Poza.cs">
+      <DependentUpon>BlogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\CustomerIndexViewModel.cs" />
-    <Compile Include="ViewModels\CustomerViewModel.cs" />
-    <Compile Include="ViewModels\LanguageViewModel.cs" />
-    <Compile Include="ViewModels\NavbarItemViewModel.cs" />
-    <Compile Include="ViewModels\PageInfoViewModel.cs" />
-    <Compile Include="ViewModels\RankingModelViewModel.cs" />
-    <Compile Include="ViewModels\RankingViewModel.cs" />
-    <Compile Include="ViewModels\SupplierIndexViewModel.cs" />
-    <Compile Include="ViewModels\SupplierViewModel.cs" />
-    <Compile Include="ViewModels\TranslationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\CrmModel.Context.tt">
+    <Content Include="Models\BlogModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CrmModel.edmx</DependentUpon>
-      <LastGenOutput>CrmModel.Context.cs</LastGenOutput>
+      <DependentUpon>BlogModel.edmx</DependentUpon>
+      <LastGenOutput>BlogModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CrmModel.tt">
+    <Content Include="Models\BlogModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CrmModel.edmx</DependentUpon>
-      <LastGenOutput>CrmModel.cs</LastGenOutput>
+      <DependentUpon>BlogModel.edmx</DependentUpon>
+      <LastGenOutput>BlogModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\CrmModel.edmx">
+    <EntityDeploy Include="Models\BlogModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CrmModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>BlogModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CrmModel.edmx.diagram">
-      <DependentUpon>CrmModel.edmx</DependentUpon>
+    <Content Include="Models\BlogModel.edmx.diagram">
+      <DependentUpon>BlogModel.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\Local Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -320,25 +294,25 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Customer\Details.cshtml" />
-    <Content Include="Views\Supplier\Index.cshtml" />
-    <Content Include="Views\Shared\_LanguagePartial.cshtml" />
-    <Content Include="Views\Shared\_NumarAccesari.cshtml" />
-    <Content Include="Views\Supplier\_DummyPartial.cshtml" />
-    <Content Include="Views\Customer\_NumarTotalClienti.cshtml" />
-    <Content Include="Views\Home\_GlumaZilei.cshtml" />
-    <Content Include="Views\Shared\_RankingPartial.cshtml" />
-    <Content Include="Views\Shared\_Pagging.cshtml" />
-    <Content Include="Views\Customer\Edit.cshtml" />
-    <Content Include="Views\Customer\Delete.cshtml" />
-    <Content Include="Views\Customer\Create.cshtml" />
-    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Postare\Create.cshtml" />
+    <Content Include="Views\Postare\Delete.cshtml" />
+    <Content Include="Views\Postare\Details.cshtml" />
+    <Content Include="Views\Postare\Edit.cshtml" />
+    <Content Include="Views\Postare\Index.cshtml" />
+    <Content Include="Views\Comentariu\Create.cshtml" />
+    <Content Include="Views\Comentariu\Delete.cshtml" />
+    <Content Include="Views\Comentariu\Details.cshtml" />
+    <Content Include="Views\Comentariu\Edit.cshtml" />
+    <Content Include="Views\Comentariu\Index.cshtml" />
+    <Content Include="Views\Poza\Create.cshtml" />
+    <Content Include="Views\Poza\Delete.cshtml" />
+    <Content Include="Views\Poza\Details.cshtml" />
+    <Content Include="Views\Poza\Edit.cshtml" />
+    <Content Include="Views\Poza\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Language\" />
-    <Folder Include="Views\Ranking\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -372,9 +346,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51628</DevelopmentServerPort>
+          <DevelopmentServerPort>62119</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44315/</IISUrl>
+          <IISUrl>https://localhost:44337/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
