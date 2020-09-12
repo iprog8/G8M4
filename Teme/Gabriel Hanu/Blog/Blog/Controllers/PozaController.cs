@@ -10,6 +10,7 @@ using Blog.Models;
 
 namespace Blog.Controllers
 {
+    [Authorize]
     public class PozaController : Controller
     {
         private BlogEntities db = new BlogEntities();
