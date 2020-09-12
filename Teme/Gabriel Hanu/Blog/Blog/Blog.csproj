@@ -185,6 +185,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ComentariuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagineController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostareController.cs" />
     <Compile Include="Controllers\PozaController.cs" />
@@ -211,6 +212,7 @@
       <DependentUpon>BlogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Imagine.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Postare.cs">
       <DependentUpon>BlogModel.tt</DependentUpon>
@@ -310,10 +312,13 @@
     <Content Include="Views\Poza\Edit.cshtml" />
     <Content Include="Views\Poza\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Imagine\Index.cshtml" />
+    <Content Include="Views\Imagine\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ActionFilters\" />
     <Folder Include="App_Data\" />
+    <Folder Include="ImaginiArticol\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
