@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BlogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comentariu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostareId" Type="int" Nullable="false" />
+          <Property Name="Titlu" Type="nvarchar" MaxLength="500" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ComentatorId" Type="nvarchar" MaxLength="500" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="500" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="SiteWeb" Type="nvarchar" MaxLength="500" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="DataCreare" Type="datetime" Nullable="false" />
+          <Property Name="Edited" Type="bit" Nullable="false" />
+          <Property Name="Aprobat" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Postare">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titlu" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AutorId" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataCreare" Type="datetime" Nullable="false" />
+          <Property Name="UltimulUpdate" Type="datetime" />
+          <Property Name="Publicata" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Poza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostareId" Type="int" Nullable="false" />
+          <Property Name="CalePoza" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comentarii_Postare">
+          <End Role="Postare" Type="Self.Postare" Multiplicity="1" />
+          <End Role="Comentariu" Type="Self.Comentariu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postare">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comentariu">
+              <PropertyRef Name="PostareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PozaArticol_Postare">
+          <End Role="Postare" Type="Self.Postare" Multiplicity="1" />
+          <End Role="Poza" Type="Self.Poza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postare">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Poza">
+              <PropertyRef Name="PostareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BlogModelStoreContainer">
+          <EntitySet Name="Comentariu" EntityType="Self.Comentariu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Postare" EntityType="Self.Postare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poza" EntityType="Self.Poza" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comentarii_Postare" Association="Self.FK_Comentarii_Postare">
+            <End Role="Postare" EntitySet="Postare" />
+            <End Role="Comentariu" EntitySet="Comentariu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PozaArticol_Postare" Association="Self.FK_PozaArticol_Postare">
+            <End Role="Postare" EntitySet="Postare" />
+            <End Role="Poza" EntitySet="Poza" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comentariu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostareId" Type="Int32" Nullable="false" />
+          <Property Name="Titlu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ComentatorId" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Nume" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SiteWeb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="DataCreare" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Edited" Type="Boolean" Nullable="false" />
+          <Property Name="Aprobat" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Postare" Relationship="Self.FK_Comentarii_Postare" FromRole="Comentariu" ToRole="Postare" />
+        </EntityType>
+        <EntityType Name="Postare">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titlu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AutorId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataCreare" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UltimulUpdate" Type="DateTime" Precision="3" />
+          <Property Name="Publicata" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comentarius" Relationship="Self.FK_Comentarii_Postare" FromRole="Postare" ToRole="Comentariu" />
+          <NavigationProperty Name="Pozas" Relationship="Self.FK_PozaArticol_Postare" FromRole="Postare" ToRole="Poza" />
+        </EntityType>
+        <EntityType Name="Poza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostareId" Type="Int32" Nullable="false" />
+          <Property Name="CalePoza" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Postare" Relationship="Self.FK_PozaArticol_Postare" FromRole="Poza" ToRole="Postare" />
+        </EntityType>
+        <Association Name="FK_Comentarii_Postare">
+          <End Role="Postare" Type="Self.Postare" Multiplicity="1" />
+          <End Role="Comentariu" Type="Self.Comentariu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postare">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comentariu">
+              <PropertyRef Name="PostareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PozaArticol_Postare">
+          <End Role="Postare" Type="Self.Postare" Multiplicity="1" />
+          <End Role="Poza" Type="Self.Poza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postare">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Poza">
+              <PropertyRef Name="PostareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BlogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comentarius" EntityType="Self.Comentariu" />
+          <EntitySet Name="Postares" EntityType="Self.Postare" />
+          <EntitySet Name="Pozas" EntityType="Self.Poza" />
+          <AssociationSet Name="FK_Comentarii_Postare" Association="Self.FK_Comentarii_Postare">
+            <End Role="Postare" EntitySet="Postares" />
+            <End Role="Comentariu" EntitySet="Comentarius" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PozaArticol_Postare" Association="Self.FK_PozaArticol_Postare">
+            <End Role="Postare" EntitySet="Postares" />
+            <End Role="Poza" EntitySet="Pozas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlogModelStoreContainer" CdmEntityContainer="BlogEntities">
+          <EntitySetMapping Name="Comentarius">
+            <EntityTypeMapping TypeName="BlogModel.Comentariu">
+              <MappingFragment StoreEntitySet="Comentariu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PostareId" ColumnName="PostareId" />
+                <ScalarProperty Name="Titlu" ColumnName="Titlu" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ComentatorId" ColumnName="ComentatorId" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SiteWeb" ColumnName="SiteWeb" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="DataCreare" ColumnName="DataCreare" />
+                <ScalarProperty Name="Edited" ColumnName="Edited" />
+                <ScalarProperty Name="Aprobat" ColumnName="Aprobat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Postares">
+            <EntityTypeMapping TypeName="BlogModel.Postare">
+              <MappingFragment StoreEntitySet="Postare">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Titlu" ColumnName="Titlu" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="AutorId" ColumnName="AutorId" />
+                <ScalarProperty Name="DataCreare" ColumnName="DataCreare" />
+                <ScalarProperty Name="UltimulUpdate" ColumnName="UltimulUpdate" />
+                <ScalarProperty Name="Publicata" ColumnName="Publicata" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pozas">
+            <EntityTypeMapping TypeName="BlogModel.Poza">
+              <MappingFragment StoreEntitySet="Poza">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PostareId" ColumnName="PostareId" />
+                <ScalarProperty Name="CalePoza" ColumnName="CalePoza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
