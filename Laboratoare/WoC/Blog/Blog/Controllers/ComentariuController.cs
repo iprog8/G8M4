@@ -9,7 +9,8 @@ using System.Web.Mvc;
 using Blog.Models;
 
 namespace Blog.Controllers
-{
+{   
+    [Authorize]
     public class ComentariuController : Controller
     {
         private BlogEntities db = new BlogEntities();
