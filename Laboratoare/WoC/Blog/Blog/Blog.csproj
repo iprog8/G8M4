@@ -309,6 +309,7 @@
     <Content Include="Views\Poza\Details.cshtml" />
     <Content Include="Views\Poza\Edit.cshtml" />
     <Content Include="Views\Poza\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
