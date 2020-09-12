@@ -1,0 +1,23 @@
+﻿@model Blog.ViewModels.ArticolIndexViewModel
+@{
+    ViewBag.Title = "Lista articole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach (var articol in Model.ListaArticole)
+{
+    <h4>@articol.Titlu</h4>
+    <p>Data articol: @articol.DataCreare</p>
+    <hr />
+    <article class="row">
+        <div class="col-md-12">
+                <img src="@articol.ListaPoze.FirstOrDefault().CalePoza" width="100px" />
+            <p>@articol.Text</p>
+        </div>
+        <p>@Html.ActionLink("Mai mult...","Details", new { id = articol.Id})</p>
+    </article>
+
+}
+
