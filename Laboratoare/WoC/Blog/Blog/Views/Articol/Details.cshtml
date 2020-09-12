@@ -1,0 +1,40 @@
+﻿@model Blog.ViewModels.ArticolViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Titlu</h2>
+<p>Data articol: @Model.DataCreare</p>
+<hr />
+<article class="row">
+    <div class="col-md-12">
+        @if (Model.ListaPoze.Count > 0)
+        {
+            <img src="@Model.ListaPoze.FirstOrDefault().CalePoza" width="300px"/>
+        }
+        <p>@Model.Text</p>
+    </div>
+</article>
+<div class="coments">
+    <h3>Comentarii</h3>
+    @if (Model.ListaComentarii.Count > 0)
+    {
+        foreach (var comentariu in Model.ListaComentarii)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>@comentariu.Titlu</h4>
+                    <p>
+                        @comentariu.Text
+                    </p>
+                    <p>
+                        Scris de: @comentariu.Nume la @comentariu.DataCreare
+                    </p>
+                </div>
+            </div>
+        }
+    }
+</div>
+

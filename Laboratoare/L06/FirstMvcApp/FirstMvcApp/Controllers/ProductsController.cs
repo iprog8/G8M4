@@ -28,6 +28,7 @@ namespace FirstMvcApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            db.Products.Include(p => p.OrderItems);
             Product product = db.Products.Find(id);
             if (product == null)
             {
