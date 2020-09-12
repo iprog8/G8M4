@@ -312,6 +312,7 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ActionFilters\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
