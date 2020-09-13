@@ -1,0 +1,18 @@
+﻿@model int
+
+@if (Model > 0)
+{
+    <li>
+        <a href="/Comentariu/Index">
+            Comentarii
+            <span class="badge badge-pill badge-success">@Model</span>
+        </a>
+    </li>
+}
+else
+{
+
+    <li>
+        @Html.ActionLink("Comentarii", "Index", "Comentariu")
+    </li>
+}
