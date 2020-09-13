@@ -16,10 +16,21 @@ namespace Blog.Controllers
         private BlogEntities db = new BlogEntities();
 
         // GET: Comentariu
-        public ActionResult Index()
+        public ActionResult Index(bool neaprobate = false)
         {
-            var comentarius = db.Comentarius.Include(c => c.Postare);
-            return View(comentarius.ToList());
+            var query = db.Comentarius.Include(c => c.Postare);
+            if (neaprobate)
+            {
+                query = query.Where(c => !c.Aprobat);
+            }
+            query = query.OrderByDescending(c => c.DataCreare);
+            return View(query.ToList());
+        }
+
+        public ActionResult _ComentariiLink()
+        {
+            var model = db.Comentarius.Where(c => !c.Aprobat).Count();
+            return PartialView(model);
         }
 
         // GET: Comentariu/Details/5
@@ -128,6 +139,14 @@ namespace Blog.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult Aproba(int comentariuID) {
+
+            Comentariu comentariu = db.Comentarius.Find(comentariuID);
+            comentariu.Aprobat = true;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

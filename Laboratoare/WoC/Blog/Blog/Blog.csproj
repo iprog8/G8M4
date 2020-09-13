@@ -323,6 +323,7 @@
     <Content Include="Views\Articol\Details.cshtml" />
     <Content Include="Views\Articol\Index.cshtml" />
     <Content Include="Views\Articol\_AdaugaComentariu.cshtml" />
+    <Content Include="Views\Shared\_ComentariiLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
