@@ -1,4 +1,6 @@
 ﻿using Blog.Models;
+using Blog.ViewModels;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,9 +36,11 @@ namespace Blog.Controllers
         }
 
         // GET: Imagine/Create
-        public ActionResult Create()
+        public ActionResult Create(int postareId)
         {
-            return View();
+            UploadImagineViewModel model = new UploadImagineViewModel();
+            model.Poza.PostareId = postareId;
+            return View(model);
         }
 
         // POST: Imagine/Create
@@ -45,14 +49,21 @@ namespace Blog.Controllers
         {
             try
             {
+                var postareId = this.Request.Form["Poza.PostareId"];
+                int postareIdInt = int.Parse(postareId);
                 if (file.ContentLength > 0)
                 {
-                    string fileName = Path.GetFileName(file.FileName);
-                    string path = Path.Combine(Server.MapPath(Imagine.CaleImagini), fileName);
+                    string filename = Path.GetFileName(file.FileName);
+                    string path = Path.Combine(Server.MapPath(Imagine.CaleImagini), filename);
                     file.SaveAs(path);
+                    Poza poza = new Poza();
+                    poza.CalePoza = $"{Imagine.CaleImagini}/{filename}";
+                    poza.PostareId = postareIdInt;
+                    BlogEntities db = new BlogEntities();
+                    db.Pozas.Add(poza);
+                    db.SaveChanges();
                 }
-                ViewBag.Message = "Incarcare reusita!!";
-                return View();
+                return RedirectToAction("Edit", "Postare", new { id = postareIdInt });
             }
             catch
             {

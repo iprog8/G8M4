@@ -30,5 +30,7 @@ namespace Blog.Models
         public virtual DbSet<Poza> Pozas { get; set; }
 
         public System.Data.Entity.DbSet<Blog.ViewModels.ArticolViewModel> ArticolViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<Blog.ViewModels.PostareViewModel> PostareViewModels { get; set; }
     }
 }
