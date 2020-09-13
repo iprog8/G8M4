@@ -228,6 +228,8 @@
     <Compile Include="ViewModels\ArticolIndexViewModel.cs" />
     <Compile Include="ViewModels\ArticolViewModel.cs" />
     <Compile Include="ViewModels\PaginareViewModel.cs" />
+    <Compile Include="ViewModels\PostareViewModel.cs" />
+    <Compile Include="ViewModels\UploadImagineViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -324,6 +326,7 @@
     <Content Include="Views\Articol\Index.cshtml" />
     <Content Include="Views\Articol\_AdaugaComentariu.cshtml" />
     <Content Include="Views\Shared\_ComentariiLink.cshtml" />
+    <Content Include="Views\Postare\_PozeArticol.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blog.Models;
+using Blog.ViewModels;
 
 namespace Blog.Controllers
 {
@@ -66,7 +68,19 @@ namespace Blog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Postare postare = db.Postares.Find(id);
+            PostareViewModel postare = db.Postares
+                .Select(p => new PostareViewModel {
+                    Titlu = p.Titlu,
+                    DataCrearii = p.DataCreare,
+                    Id = p.Id,
+                    Autor = p.AutorId,
+                    Poze = p.Pozas,
+                    Text = p.Text,
+                    UltimulUpdate = p.UltimulUpdate,
+                    Publicata = p.Publicata
+                })
+                .FirstOrDefault(p => p.Id == id);
+
             if (postare == null)
             {
                 return HttpNotFound();

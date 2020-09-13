@@ -1,4 +1,4 @@
-﻿@model Blog.Models.Imagine
+﻿@model Blog.ViewModels.UploadImagineViewModel
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -9,6 +9,7 @@
 
 @using (Html.BeginForm("Create", "Imagine", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(model => model.Poza.PostareId);
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">

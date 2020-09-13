@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Blog.Models.Poza>
+
+<p>
+    @Html.ActionLink("Adauga fotografie noua", "Create","Imagine", new { postareId = Model.FirstOrDefault().PostareId}, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Poza
+        </th>
+        <th>
+            Actiuni
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="@item.CalePoza" width="150" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Poza", new { id=item.Id }, null) |
+            @Html.ActionLink("Details", "Details", "Poza" , new { id=item.Id }, null) |
+            @Html.ActionLink("Delete", "Delete","Poza", new { id=item.Id }, null)
+        </td>
+    </tr>
+}
+
+</table>
