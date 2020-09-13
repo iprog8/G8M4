@@ -322,6 +322,7 @@
     <Content Include="Views\Imagine\Create.cshtml" />
     <Content Include="Views\Articol\Details.cshtml" />
     <Content Include="Views\Articol\Index.cshtml" />
+    <Content Include="Views\Articol\_AdaugaComentariu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
