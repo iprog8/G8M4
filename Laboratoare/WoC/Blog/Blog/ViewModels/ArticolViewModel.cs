@@ -14,6 +14,7 @@ namespace Blog.ViewModels
         public string Text { get; set; }
         public ICollection<Comentariu> ListaComentarii { get; set; }
         public ICollection<Poza> ListaPoze { get; set; }
+        public string LoggedUser { get; set; }
 
         public ArticolViewModel()
         {

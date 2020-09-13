@@ -19,6 +19,7 @@
 </article>
 <div class="coments">
     <h3>Comentarii</h3>
+    @{Html.RenderPartial("_AdaugaComentariu", new Blog.Models.Comentariu(){PostareId = Model.Id, Email = Model.LoggedUser, Nume = Model.LoggedUser });}
     @if (Model.ListaComentarii.Count > 0)
     {
         foreach (var comentariu in Model.ListaComentarii)

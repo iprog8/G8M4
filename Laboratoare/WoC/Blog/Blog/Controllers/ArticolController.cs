@@ -34,20 +34,34 @@ namespace Blog.Controllers
         public ActionResult Details(int id)
         {
             BlogEntities db = new BlogEntities();
-            ArticolViewModel model = db.Postares.Include(a => a.Pozas)
+            ArticolViewModel model = db.Postares.OrderByDescending(p => p.DataCreare).Include(a => a.Pozas)
                 .Include(p => p.Comentarius)
                 .Select((p => new ArticolViewModel
                 {
                     Id = p.Id,
                     Titlu = p.Titlu,
                     DataCreare = p.DataCreare,
-                    Text   = p.Text,
-                    ListaComentarii = p.Comentarius.Where(a => a.Aprobat).ToList(),
+                    Text = p.Text,
+                    ListaComentarii = p.Comentarius.Where(a => a.Aprobat).OrderByDescending(s => s.DataCreare).ToList(),
                     ListaPoze = p.Pozas
                 }))
                 .FirstOrDefault(p => p.Id == id);
+            model.LoggedUser = User.Identity.Name;
             return View(model);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult _AdaugaComentariu(Comentariu comentariu)
+        {
+            BlogEntities db = new BlogEntities();
+            if (ModelState.IsValid)
+            {
+                comentariu.DataCreare = DateTime.Now;
+                db.Comentarius.Add(comentariu);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { Id = comentariu.PostareId});
+            }
+            return View(comentariu);
+        }
     }
-
 }

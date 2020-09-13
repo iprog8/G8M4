@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+.comment-area {
+    width: 400px;
+    height: 120px !important;
+}
