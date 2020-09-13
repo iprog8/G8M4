@@ -17,7 +17,7 @@ namespace Blog.Controllers
         {
             BlogEntities db = new BlogEntities();
             ArticolIndexViewModel model = new ArticolIndexViewModel();
-            model.ListaArticole = db.Postares.Include(p => p.Pozas)
+            model.ListaArticole = db.Postares.Where(a => a.Publicata).Include(p => p.Pozas)
                     .OrderByDescending(p => p.DataCreare)
                     .Skip(model.Paginare.ItemsPerPage * (pagina - 1))
                     .Take(model.Paginare.ItemsPerPage)
@@ -42,7 +42,7 @@ namespace Blog.Controllers
                     Titlu = p.Titlu,
                     DataCreare = p.DataCreare,
                     Text   = p.Text,
-                    ListaComentarii = p.Comentarius,
+                    ListaComentarii = p.Comentarius.Where(a => a.Aprobat).ToList(),
                     ListaPoze = p.Pozas
                 }))
                 .FirstOrDefault(p => p.Id == id);
