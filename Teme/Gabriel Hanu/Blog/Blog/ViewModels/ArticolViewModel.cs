@@ -10,14 +10,14 @@ namespace Blog.ViewModels
     {
         public ArticolViewModel()
         {
-            ListaComentarii = new List<Comentariu>();
+            ListaComentarii = new List<ComentariuViewModel>();
             ListaPoze = new List<Poza>();
         }
         public int Id { get; set; }
         public string Titlu { get; set; }
         public DateTime DataCreare { get; set; }
         public string Text { get; set; }
-        public ICollection<Comentariu> ListaComentarii { get; set; }
+        public ICollection<ComentariuViewModel> ListaComentarii { get; set; }
         public ICollection<Poza> ListaPoze { get; set; }
 
     }

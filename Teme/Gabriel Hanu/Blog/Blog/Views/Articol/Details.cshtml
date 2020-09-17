@@ -23,8 +23,6 @@
     {
         foreach (var comentariu in Model.ListaComentarii)
         {
-            if (comentariu.Aprobat)
-            {
                 <div class="row">
                     <div class="col-md-12">
                         <h4>@comentariu.Titlu</h4>
@@ -40,7 +38,6 @@
                         }
                     </div>
                 </div>
-            }
         }
     }
 </div>

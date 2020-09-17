@@ -27,7 +27,9 @@ namespace Blog.Controllers
                     Titlu = p.Titlu,
                     DataCreare = p.DataCreare,
                     Text = p.Text,
-                    ListaComentarii = p.Comentarius.Select(c => new ComentariuViewModel { 
+                    ListaComentarii = p.Comentarius
+                    .Where(s => s.Aprobat)
+                    .Select(c => new ComentariuViewModel { 
                         Id = c.Id,
                         DataCreare = c.DataCreare,
                         Aprobat = c.Aprobat,
