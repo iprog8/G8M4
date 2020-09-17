@@ -37,5 +37,26 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+        const server = "https://localhost:44399/api"
+        const currency = "/currency"
+        debugger
+        $.getJSON(server + currency, function (currencies) {
+            var valute = [];
+            for (const i in currencies) {
+                const currency = currencies[i];
+                valute.push(`<li id='${currency.Id}'>1 ${currency.Valuta} = ${currency.Paritate} RON</li>`)
+            }
+            $("<ul/>", {
+                class: "currencies",
+                html: valute.join("")
+            }).appendTo("div#valute")
+        });
+    </script>
+
+    <div id="valute">
+
+    </div>
 </body>
 </html>
