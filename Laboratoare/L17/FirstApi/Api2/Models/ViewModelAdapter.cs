@@ -35,4 +35,21 @@ namespace Api2.Models
             this.Phone = supplierVM.Phone;
         }
     }
+
+    public partial class Currency
+    {
+
+        public Currency()
+        {
+
+        }
+
+        public Currency(CurrencyVM currency)
+        {
+            Id = currency.Id;
+            Valuta = currency.Valuta;
+            Paritate = currency.Paritate;
+        }
+
+    }
 }

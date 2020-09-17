@@ -15,10 +15,17 @@ namespace Api2
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "CurrencyApi",
+                routeTemplate: "api/{controller}/{codValuta}",
+                defaults: new { codValuta = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
         }
     }
 }
