@@ -21,15 +21,14 @@ namespace TestWebApi.Controllers
         public ICollection<SupplierViewModel> GetSuppliers()
         {
             return db.Suppliers
-                .Select(s => new SupplierViewModel() {//nu merge cu constructorul cu parametrii, imi da o eroare legata de linq
-                    Id = s.Id,
-                    City = s.City,
-                    CompanyName = s.CompanyName,
-                    ContactName = s.ContactName,
-                    ContactTitle = s.ContactTitle,
-                    Country = s.Country,
-                    Phone = s.Phone
-                })
+                .Select(s => new SupplierViewModel(s))//nu merge cu constructorul cu parametrii, imi da o eroare legata de linq
+                    //Id = s.Id,
+                    //City = s.City,
+                    //CompanyName = s.CompanyName,
+                    //ContactName = s.ContactName,
+                    //ContactTitle = s.ContactTitle,
+                    //Country = s.Country,
+                    //Phone = s.Phone
                 .ToList();
         }
 
